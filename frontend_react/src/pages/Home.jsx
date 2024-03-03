@@ -1,8 +1,16 @@
 import React from 'react'
-
+import Header from "../components/common/Header"
+import Footer from "../components/common/Footer"
+import Topic from "../pages/Topic"
+import SubTopic from "../pages/SubTopic"
 function Home() {
   return (
-    <div>Home</div>
+    <>
+    <Header />
+    <Topic />
+    <SubTopic />
+    <Footer />
+    </>
   )
 }
 

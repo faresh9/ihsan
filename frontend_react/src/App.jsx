@@ -1,8 +1,12 @@
 import React from 'react'
-
+import Home from "./pages/Home"
 function App() {
   return (
-    <div className="font-bold underline">App</div>
+    <>
+    <Home/>
+    
+    
+    </>
   )
 }
 
