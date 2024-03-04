@@ -1,14 +1,13 @@
 import React from 'react'
 import Header from "../components/common/Header"
 import Footer from "../components/common/Footer"
-import Topic from "../pages/Topic"
+import TopicList from "../components/TopicList"
 import SubTopic from "../pages/SubTopic"
 function Home() {
   return (
     <>
     <Header />
-    <Topic />
-    <SubTopic />
+    <TopicList />
     <Footer />
     </>
   )
