@@ -7,6 +7,8 @@ import {
   IconButton,
 } from "@material-tailwind/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import DashBoard from "../../pages/DashBoard";
+import { Link } from 'react-router-dom';
  
 function NavList() {
   return (
@@ -17,9 +19,9 @@ function NavList() {
         color="blue-gray"
         className="p-1 font-medium"
       >
-        <a href="#" className="flex items-center hover:text-blue-500 transition-colors">
-          Pages
-        </a>
+        <Link to= "/DashBoard" className="flex items-center hover:text-blue-500 transition-colors">
+          Dashboard
+        </Link>
       </Typography>
       <Typography
         as="li"

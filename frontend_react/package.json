@@ -10,16 +10,27 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.18",
+    "@headlessui/tailwindcss": "^0.2.0",
     "@heroicons/react": "^2.1.1",
     "@material-tailwind/react": "^2.1.9",
+    "@mui/x-date-pickers": "^5.0.12",
+    "@remixicon/react": "^4.2.0",
     "@sanity/client": "^6.15.1",
     "@sanity/image-url": "^1.0.2",
+    "@tremor/react": "^3.14.1",
+    "@types/react-big-calendar": "^1.8.9",
+    "date-fns": "^2.30.0",
     "dotenv": "^16.4.5",
     "react": "^18.2.0",
+    "react-big-calendar": "^1.8.2",
+    "react-clock": "^4.6.0",
+    "react-colorful": "^5.6.1",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.2"
   },
   "devDependencies": {
+    "@tailwindcss/forms": "^0.5.7",
     "@types/react": "^18.2.56",
     "@types/react-dom": "^18.2.19",
     "@vitejs/plugin-react-swc": "^3.5.0",
