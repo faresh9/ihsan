@@ -1,3 +1,4 @@
+import React from 'react'
 import { useState, MouseEvent } from "react"
 import { Box, Button, ButtonGroup, Card, CardContent, CardHeader, Container, Divider } from "@mui/material"
 
@@ -11,6 +12,8 @@ import enUS from "date-fns/locale/en-US"
 
 import "react-big-calendar/lib/css/react-big-calendar.css"
 
+
+import "../../../styles/calendar.css"
 import EventInfo from "./EventInfo"
 import AddEventModal from "./AddEventModal"
 import EventInfoModal from "./EventInfoModal"
