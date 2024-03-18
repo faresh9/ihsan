@@ -157,6 +157,10 @@ const EventCalendar = () => {
     setEventInfoModal(false)
   }
 
+
+  // ok if you want to style style here not css
+  //|
+  //|
   return (
     <Box
       mt={2}
@@ -166,10 +170,13 @@ const EventCalendar = () => {
         flexGrow: 1,
         py: 8,
       }}
+      
     >
       <Container maxWidth={false}>
-        <Card>
-          <CardHeader title="Calendar" subheader="Create Events and Todos and manage them easily" />
+        <Card  style={{ backgroundColor: "#2f3652"}}>
+          <CardHeader title="Calendar"
+          style={{color: "white"}}
+          />
           <Divider />
           <CardContent>
             <Box sx={{ display: "flex", justifyContent: "space-between" }}>
@@ -227,6 +234,7 @@ const EventCalendar = () => {
                   style: {
                     backgroundColor: hasTodo ? hasTodo.color : "#b64fc8",
                     borderColor: hasTodo ? hasTodo.color : "#b64fc8",
+                    color: "white",
                   },
                 }
               }}

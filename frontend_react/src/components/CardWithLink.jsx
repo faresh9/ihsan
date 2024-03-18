@@ -24,20 +24,20 @@ export default function CardWithLink() {
   return (  
     <>
       {cards.map((card, index) => (
-        <Card key={index} className="mt-6 w-96">
+        <Card key={index} className="mt-6 w-96 bg-dark-mode">
           <CardBody>
             {/* Render the card title, image, and description dynamically */}
-            <Typography variant="h5" color="blue-gray" className="mb-2">
+            <Typography variant="h5" color="white" className="mb-2">
               {card.title}
             </Typography>
-            <img src={card.imageUrl} alt={card.title} className="mb-4 h-12 w-12 text-gray-900" />
-            <Typography>
+            <img src={card.imageUrl} alt={card.title} className="mb-4 h-12 w-12 text-gray-200" />
+            <Typography className='text-light-green-50'>
               {card.description}
             </Typography>
           </CardBody>
           <CardFooter className="pt-0">
             <Link to="/SubTopic" className="inline-block">
-              <Button size="sm" variant="text" className="flex items-center gap-2">
+              <Button size="sm" variant="text" className="flex items-center gap-2 text-green-50">
                 Learn More
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

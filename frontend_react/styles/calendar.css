@@ -1,2 +1,19 @@
-@import './node_modules/react-big-calendar/lib/sass/styles.scss';
+@import '.././node_modules/react-big-calendar/lib/sass/styles.scss';
 
+.rbc-calendar {
+    color: aliceblue;
+}
+
+.rbc-off-range {
+    color: rgb(122, 119, 119);
+  }
+  
+  .rbc-off-range-bg {
+    background: linear-gradient(45deg, rgba(0, 0, 0, 0.1) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, 0.1) 50%, rgba(0, 0, 0, 0.1) 75%, transparent 75%, transparent) ;
+  }
+
+  .rbc-today {
+    background-color: #12316a;
+  }
+
+  

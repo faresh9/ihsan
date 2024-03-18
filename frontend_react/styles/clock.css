@@ -1,5 +1,23 @@
 .your-class {
-	border-width: 5px !important;
-	border-color:rgba(106, 177, 5, 0.95) !important;
-	background-color: rgba(255, 20, 20, 0.753);
+	border-width:none !important;
+	border-color: rgb(0, 10, 25) !important;
+	background-color: #1c223c;
+	box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
 }
+
+.your-class:hover {
+	border-width:none !important;
+	border-color: rgb(0, 10, 25) !important;
+	background-color: #1c223c;
+	box-shadow: rgba(255, 255, 255, 0.2) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.9) 0px 0px 0px 1px;
+}
+
+.clock-container{
+	display: flex;
+	justify-content: center;
+	align-items:center;
+	flex-direction: column;
+	margin-bottom: 100px;
+	margin-top: 100px;
+}
+

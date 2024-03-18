@@ -18,6 +18,8 @@ code {
 	justify-content: space-between;
 }
 
+
+
 .dark-mode {
 	background-color: black;
 }
@@ -45,33 +47,38 @@ code {
 }
 
 .note.new {
-	background-color: #67d7cc;
+	background-color: #535C91;
 }
 
 textarea {
 	border: none;
 	resize: none;
-	background-color: #67d7cc;
+	background-color: #535C91;
 }
 
 textarea:focus {
 	outline: none;
 }
 
+.custom-textarea::placeholder {
+    color: rgb(5, 5, 5);
+}
+
+
 .save {
-	background-color: #e1e1e1;
+	background-color: #2f3652;
 	border: none;
 	border-radius: 15px;
 	padding: 5px 10px 5px 10px;
 }
 
 .save:hover {
-	background-color: #ededed;
+	background-color: #073785;
 	cursor: pointer;
 }
 
 .note {
-	background-color: #fef68a;
+	background-color: #2f3652;
 	border-radius: 10px;
 	padding: 1rem;
 	min-height: 170px;
@@ -79,33 +86,45 @@ textarea:focus {
 	flex-direction: column;
 	justify-content: space-between;
 	white-space: pre-wrap;
+	box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
 }
 
 .note-footer {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+	color: whitesmoke;
 }
 
 .delete-icon {
 	cursor: pointer;
 }
 
+.delete-icon:hover {
+	color: rgb(242, 8, 8);
+}
+
 .search {
 	display: flex;
 	align-items: center;
-	background-color: rgb(233, 233, 233);
+	background-color: #535C91;
 	border-radius: 10px;
 	padding: 5px;
 	margin-bottom: 1.5em;
+	box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
 }
 
 .search input {
 	border: none;
-	background-color: rgb(233, 233, 233);
-	width: 100%;
+	background-color: #535C91;
+	width: 100%;;
 }
 
 .search input:focus {
 	outline: none;
 }
+
+.note span{
+	color: whitesmoke;
+}
+
