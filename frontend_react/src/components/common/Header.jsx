@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {Link} from 'react-router-dom'
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
@@ -108,7 +109,7 @@ export default function Header() {
         <Toolbar>
 
             <Typography variant="h6" sx={{flexGrow: 1, fontWeight: 700}}>
-              Brand
+              Ihsan
             </Typography>
 
             <Box component="div" sx={{
@@ -163,13 +164,13 @@ export default function Header() {
                   </IconButton>
 
                   <Divider sx={{mb: 2}} />
-
+                  <Link to='/dashboard'>
                   <Box sx={{mb: 2}}>
                     <ListItemButton>
                       <ListItemIcon>
                         <ImageIcon sx={{color: "primary.main"}}/>
                       </ListItemIcon>
-                      <ListItemText primary="Pictures" />
+                      <ListItemText primary="Dashboard" />
                     </ListItemButton>
 
                     <ListItemButton>
@@ -186,6 +187,7 @@ export default function Header() {
                       <ListItemText primary="Other" />
                     </ListItemButton>
                   </Box>
+                  </Link>
                   
                   {search}
 
