@@ -57,7 +57,7 @@ const SearchIconWrapper = styled('div')(
 
 const StyledInputBase = styled(InputBase)(
   ({ theme }) => ({
-  color: 'inherit',
+  color: '#ffff',
   '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
     // vertical padding + font size from searchIcon
@@ -74,7 +74,7 @@ const StyledInputBase = styled(InputBase)(
 const search = (
   <StyledSearch>
     <SearchIconWrapper>
-      <SearchIcon />
+      <SearchIcon sx = {{color:"#ffff"}} />
     </SearchIconWrapper>
     <StyledInputBase placeholder="بحث…" inputProps={{ 'aria-label': 'search' }} />
   </StyledSearch>
@@ -104,7 +104,7 @@ export default function Header() {
 
   return (
 
-    <AppBar position="static">
+    <AppBar position="static" sx={{ backgroundColor: '#1B1A55' }} >
       <Container maxWidth="lg" disableGutters="true">
         <Toolbar>
 
@@ -152,7 +152,7 @@ export default function Header() {
                 <Box sx={{
                   p: 2,
                   height: 1,
-                  backgroundColor: "#dbc8ff",
+                  backgroundColor: "#1B1A55", // drawer background color
                 }}>
 
                   {/* 
@@ -160,7 +160,8 @@ export default function Header() {
                   and closes the drawer by setting the variable open to false
                   */}
                   <IconButton sx={{mb: 2}}>
-                    <CloseIcon onClick={toggleDrawer(false)} />
+                    <CloseIcon onClick={toggleDrawer(false)} sx={{
+                  color: "#ffff"}} />
                   </IconButton>
 
                   <Divider sx={{mb: 2}} />
@@ -170,21 +171,21 @@ export default function Header() {
                       <ListItemIcon>
                         <ImageIcon sx={{color: "primary.main"}}/>
                       </ListItemIcon>
-                      <ListItemText primary="Dashboard" />
+                      <ListItemText primary="Dashboard" sx={{ color: '#ffff' }}/>
                     </ListItemButton>
 
                     <ListItemButton>
                       <ListItemIcon>
                         <DescriptionIcon sx={{color: "primary.main"}}/>
                       </ListItemIcon >
-                      <ListItemText primary="Documents" />
+                      <ListItemText primary="Documents" sx={{ color: '#ffff' }} />
                     </ListItemButton>
 
                     <ListItemButton>
                       <ListItemIcon>
                         <FolderIcon sx={{color: "primary.main"}} />
                       </ListItemIcon>
-                      <ListItemText primary="Other" />
+                      <ListItemText primary="Other" sx={{ color: '#ffff' }} />
                     </ListItemButton>
                   </Box>
                   </Link>
