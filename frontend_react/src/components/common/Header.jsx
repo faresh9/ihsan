@@ -76,7 +76,7 @@ const search = (
     <SearchIconWrapper>
       <SearchIcon />
     </SearchIconWrapper>
-    <StyledInputBase placeholder="Suchen…" inputProps={{ 'aria-label': 'search' }} />
+    <StyledInputBase placeholder="بحث…" inputProps={{ 'aria-label': 'search' }} />
   </StyledSearch>
 )
 
@@ -127,11 +127,11 @@ export default function Header() {
               aria-label="open drawer" 
               onClick={toggleDrawer(true)}
               sx={{ 
-                mr: 2,
-                display: {
-                  xs: 'block',
-                  sm: 'none',
-                }
+                mr: 1,
+                // display: {
+                //   xs: 'block',
+                //   sm: 'block',
+                // }
               }}
             >
               <MenuIcon />

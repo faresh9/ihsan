@@ -1,11 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import {
-  Card,
-  CardBody,
-  CardFooter,
-  Typography,
-  Button,
-} from "@material-tailwind/react";
+import React, { useEffect, useState } from 'react';
+import { Card, CardBody, CardFooter, Typography, Button } from "@material-tailwind/react";
 import { Link } from 'react-router-dom';
 import { client } from '../services/sanityService'; // Import the Sanity client
 
@@ -36,7 +30,8 @@ export default function CardWithLink() {
             </Typography>
           </CardBody>
           <CardFooter className="pt-0">
-            <Link to="/SubTopic" className="inline-block">
+            {/* Use template literal to dynamically generate the link */}
+            <Link to={`/topic/${card._id}`} className="inline-block">
               <Button size="sm" variant="text" className="flex items-center gap-2 text-green-50">
                 Learn More
                 <svg
