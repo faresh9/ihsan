@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState, MouseEvent } from "react"
+import { useState, MouseEvent, useEffect } from "react"
 import { Box, Button, ButtonGroup, Card, CardContent, CardHeader, Container, Divider } from "@mui/material"
 
 import { Calendar, type Event, dateFnsLocalizer } from "react-big-calendar"
@@ -87,6 +87,31 @@ const EventCalendar = () => {
 
   const [datePickerEventFormData, setDatePickerEventFormData] =
     useState<DatePickerEventFormData>(initialDatePickerEventFormData)
+
+
+
+
+    useEffect(() => {
+      const savedEvents = localStorage.getItem('events');
+      if (savedEvents) {
+        setEvents(JSON.parse(savedEvents));
+      }
+    
+      const savedTodos = localStorage.getItem('todos');
+      if (savedTodos) {
+        setTodos(JSON.parse(savedTodos));
+      }
+    }, []);
+    
+
+  useEffect(() => {
+    localStorage.setItem('events', JSON.stringify(events));
+  }, [events]);
+
+  useEffect(() => {
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }, [todos]);
+  
 
   const handleSelectSlot = (event: Event) => {
     setOpenSlot(true)

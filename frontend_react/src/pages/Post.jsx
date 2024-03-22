@@ -33,7 +33,10 @@ function Post() {
           </React.Fragment>
         ))} */}
 
-        <PortableText content={post.content} />
+        <PortableText 
+        content={post.content}
+        
+        />
       </div>
     </div>
   );
