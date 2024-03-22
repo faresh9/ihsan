@@ -13,7 +13,12 @@ export default {
         name: 'content',
         title: 'Content',
         type: 'array',
-        of: [{ type: 'block' }],
+        of: [
+          {
+             type: 'block' ,
+             
+            }
+        ],
       },
       {
         name: 'date',
