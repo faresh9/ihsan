@@ -1,3 +1,29 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+/* Custom styles */
+body {
+  @apply bg-gray-900 text-white;
+}
+
+.input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+  @apply outline-none;
+}
+
+/* Toggle switch for dark mode */
+.toggle-checkbox:checked {
+  @apply right-0 border-green-400 bg-green-400;
+}
+
+.toggle-label {
+  @apply w-12 h-6 bg-gray-400 rounded-full shadow-inner cursor-pointer;
+}
+
+.toggle-label:before {
+  @apply block w-4 h-4 rounded-full bg-white shadow
+}
