@@ -198,7 +198,7 @@ const EventCalendar = () => {
       
     >
       <Container maxWidth={false}>
-        <Card  style={{ backgroundColor: "#2f3652"}}>
+        <Card  style={{ backgroundColor: "#18181b"}}>
           <CardHeader title="Calendar"
           style={{color: "white"}}
           />
@@ -206,10 +206,10 @@ const EventCalendar = () => {
           <CardContent>
             <Box sx={{ display: "flex", justifyContent: "space-between" }}>
               <ButtonGroup size="large" variant="contained" aria-label="outlined primary button group">
-                <Button onClick={() => setOpenDatepickerModal(true)} size="small" variant="contained">
+                <Button onClick={() => setOpenDatepickerModal(true)} size="small" variant="contained" sx={{backgroundColor:"#31363F"}}>
                   Add event
                 </Button>
-                <Button onClick={() => setOpenTodoModal(true)} size="small" variant="contained">
+                <Button onClick={() => setOpenTodoModal(true)} size="small" variant="contained" sx={{backgroundColor:"#31363F"}}>
                   Create todo
                 </Button>
               </ButtonGroup>
@@ -252,7 +252,7 @@ const EventCalendar = () => {
               startAccessor="start"
               components={{ event: EventInfo }}
               endAccessor="end"
-              defaultView="week"
+              defaultView="month"
               eventPropGetter={(event) => {
                 const hasTodo = todos.find((todo) => todo._id === event.todoId)
                 return {

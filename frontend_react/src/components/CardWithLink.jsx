@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { Card, CardBody, CardFooter, Typography, Button } from "@material-tailwind/react";
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { client } from '../services/sanityService'; // Import the Sanity client
+import '../../styles/card.scss';
 
 export default function CardWithLink() {
   const [cards, setCards] = useState([]);
@@ -16,43 +16,53 @@ export default function CardWithLink() {
   }, []);
 
   return (  
-    <>
-      {cards.map((card, index) => (
-        <Card key={index} className="mt-6 w-96 bg-dark-mode">
-          <CardBody>
-            {/* Render the card title, image, and description dynamically */}
-            <Typography variant="h5" color="white" className="mb-2">
-              {card.title}
-            </Typography>
-            <img src={card.imageUrl} alt={card.title} className="mb-4 h-12 w-12 text-gray-200" />
-            <Typography className='text-light-green-50'>
-              {card.description}
-            </Typography>
-          </CardBody>
-          <CardFooter className="pt-0">
-            {/* Use template literal to dynamically generate the link */}
-            <Link to={`/topic/${card._id}`} className="inline-block">
-              <Button size="sm" variant="text" className="flex items-center gap-2 text-green-50">
-                Learn More
+    <div className='card-with-link'>
+      <div className="grid">
+        {cards.map((card, index) => (
+          <Link to={`/topic/${card._id}`} key={index}>
+            <div className="card">
+              <span className="icon">
                 <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
                   viewBox="0 0 24 24"
-                  strokeWidth={2}
+                  fill="none"
                   stroke="currentColor"
-                  className="h-4 w-4"
+                  strokeWidth="1.2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
+                    d="M14.5 3.5C14.5 3.5 14.5 5.5 12 5.5C9.5 5.5 9.5 3.5 9.5 3.5H7.5L4.20711 6.79289C3.81658 7.18342 3.81658 7.81658 4.20711 8.20711L6.5 10.5V20.5H17.5V10.5L19.7929 8.20711C20.1834 7.81658 20.1834 7.18342 19.7929 6.79289L16.5 3.5H14.5Z"
                   />
                 </svg>
-              </Button>
-            </Link>
-          </CardFooter>
-        </Card>
-      ))}
-    </>
+              </span>
+              <h4>{card.title}</h4>
+              <p>{card.description}</p>
+              <div className="shine"></div>
+              <div className="background">
+                <div className="tiles">
+                  <div className="tile tile-1"></div>
+                  <div className="tile tile-2"></div>
+                  <div className="tile tile-3"></div>
+                  <div className="tile tile-4"></div>
+
+                  <div className="tile tile-5"></div>
+                  <div className="tile tile-6"></div>
+                  <div className="tile tile-7"></div>
+                  <div className="tile tile-8"></div>
+
+                  <div className="tile tile-9"></div>
+                  <div className="tile tile-10"></div>
+                </div>
+
+                <div className="line line-1"></div>
+                <div className="line line-2"></div>
+                <div className="line line-3"></div>
+              </div>
+            </div>
+          </Link>
+        ))}
+      </div>
+    </div>
   );
 }

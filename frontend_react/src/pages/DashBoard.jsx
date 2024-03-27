@@ -1,5 +1,4 @@
-import React from 'react'
-import Chart from "../components/Chart"
+import Header from "../components/common/Header"
 import EventCalendar from "../components/Calendar component/EventCalendar"
 import AnalogClock from '../components/Clock'
 import Notes from '../components/Notes component/Notes'
@@ -8,6 +7,7 @@ import HabitTracker from '../components/habit tracker component/HabitTracker'
 function DashBoard() {
   return (
     <div>
+<Header/>
        <AnalogClock/>
        {/* <Chart/> */}
        <Notes/>

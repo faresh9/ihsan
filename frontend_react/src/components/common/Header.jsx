@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {Link} from 'react-router-dom'
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
@@ -30,7 +30,7 @@ const StyledSearch = styled('div')(
   ({theme}) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.primary.main, 0.15),
+    backgroundColor: alpha("#34d399", 0.15),
     '&:hover': {
       backgroundColor: alpha(theme.palette.primary.main, 0.25),
     },
@@ -104,7 +104,7 @@ export default function Header() {
 
   return (
 
-    <AppBar position="static" sx={{ backgroundColor: '#1B1A55' }} >
+    <AppBar position="static" sx={{ backgroundColor: '#212121', marginBottom:"10px" }} >
       <Container maxWidth="lg" disableGutters="true">
         <Toolbar>
 
@@ -152,7 +152,7 @@ export default function Header() {
                 <Box sx={{
                   p: 2,
                   height: 1,
-                  backgroundColor: "#1B1A55", // drawer background color
+                  backgroundColor: "#212121", // drawer background color
                 }}>
 
                   {/* 
@@ -161,7 +161,7 @@ export default function Header() {
                   */}
                   <IconButton sx={{mb: 2}}>
                     <CloseIcon onClick={toggleDrawer(false)} sx={{
-                  color: "#ffff"}} />
+                  color: "#34d399"}} />
                   </IconButton>
 
                   <Divider sx={{mb: 2}} />
@@ -169,21 +169,21 @@ export default function Header() {
                   <Box sx={{mb: 2}}>
                     <ListItemButton>
                       <ListItemIcon>
-                        <ImageIcon sx={{color: "primary.main"}}/>
+                        <ImageIcon sx={{color: "#34d399"}}/>
                       </ListItemIcon>
                       <ListItemText primary="Dashboard" sx={{ color: '#ffff' }}/>
                     </ListItemButton>
 
                     <ListItemButton>
                       <ListItemIcon>
-                        <DescriptionIcon sx={{color: "primary.main"}}/>
+                        <DescriptionIcon sx={{color: "#34d399"}}/>
                       </ListItemIcon >
                       <ListItemText primary="Documents" sx={{ color: '#ffff' }} />
                     </ListItemButton>
 
                     <ListItemButton>
                       <ListItemIcon>
-                        <FolderIcon sx={{color: "primary.main"}} />
+                        <FolderIcon sx={{color: "#34d399"}} />
                       </ListItemIcon>
                       <ListItemText primary="Other" sx={{ color: '#ffff' }} />
                     </ListItemButton>
@@ -200,8 +200,8 @@ export default function Header() {
                     left: "50%", 
                     transform: "translate(-50%, 0)"}}
                   >
-                    <Button variant="contained" sx={{m:1, width: .5}}>Register</Button>
-                    <Button variant="outlined" sx={{m:1, width: .5}}>Login</Button> 
+                    <Button variant="contained" sx={{m:1, width: .5, backgroundColor:"#34d399"}}>Register</Button>
+                    <Button variant="outlined" sx={{m:1, width: .5, backgroundColor:"#34d399"}}>Login</Button> 
                   </Box>
                 </Box>
               

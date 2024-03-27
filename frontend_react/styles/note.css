@@ -47,13 +47,13 @@ code {
 }
 
 .note.new {
-	background-color: #535C91;
+	background-color: #31363F;
 }
 
 textarea {
 	border: none;
 	resize: none;
-	background-color: #535C91;
+	background-color: #31363F;
 }
 
 textarea:focus {
@@ -61,12 +61,12 @@ textarea:focus {
 }
 
 .custom-textarea::placeholder {
-    color: rgb(5, 5, 5);
+    color: #76ABAE;
 }
 
 
 .save {
-	background-color: #2f3652;
+	background-color: #76ABAE;
 	border: none;
 	border-radius: 15px;
 	padding: 5px 10px 5px 10px;
@@ -78,7 +78,7 @@ textarea:focus {
 }
 
 .note {
-	background-color: #2f3652;
+	background-color: #18181b;
 	border-radius: 10px;
 	padding: 1rem;
 	min-height: 170px;
@@ -86,7 +86,7 @@ textarea:focus {
 	flex-direction: column;
 	justify-content: space-between;
 	white-space: pre-wrap;
-	box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+	//box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
 }
 
 .note-footer {
@@ -107,16 +107,16 @@ textarea:focus {
 .search {
 	display: flex;
 	align-items: center;
-	background-color: #535C91;
+	background-color: #18181b;
 	border-radius: 10px;
 	padding: 5px;
 	margin-bottom: 1.5em;
-	box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+	//box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
 }
 
 .search input {
 	border: none;
-	background-color: #535C91;
+	background-color: #18181b;
 	width: 100%;;
 }
 
