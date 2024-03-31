@@ -27,11 +27,11 @@ function Post() {
     const {width, height} = getImageDimensions(value)
     return (
       <img
-        src={urlBuilder()
+        src={urlBuilder(client)
           .image(value)
-          .width(isInline ? 100 : 800)
-          .fit('max')
-          .auto('format')
+          // .width(isInline ? 100 : 800)
+           .fit('max')
+           .auto('format')
           .url()}
         alt={value.alt || ' '}
         loading="lazy"
@@ -58,7 +58,24 @@ function Post() {
 
     block:{
       h1: ({children}) => <h1 className="text-2xl text-green-700">{children}</h1>,
-    }
+      h2: ({children}) => <h2></h2>
+      h3: ({children}) => <h3></h3>
+      h4: ({children}) => <h4></h4>
+      h5: ({children}) => <h5></h5>
+      h6: ({children}) => <h6></h6>
+    },
+
+    list: {
+      // Ex. 1: customizing common list types
+      bullet: ({children}) => <ul className="mt-xl">{children}</ul>,
+      number: ({children}) => <ol className="mt-lg">{children}</ol>,
+    },
+
+    listItem: {
+      // Ex. 1: customizing common list types
+      bullet: ({children}) => <li style={{listStyleType: 'disclosure-closed'}}>{children}</li>,
+      number: ({children}) => <li style={{listStyleType: 'number'}}>{children}</li>,
+    },
   }
 
 
