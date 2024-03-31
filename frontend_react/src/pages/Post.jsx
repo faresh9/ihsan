@@ -4,6 +4,7 @@ import { client } from '../services/sanityService';
 import {PortableText} from '@portabletext/react'
 import urlBuilder from '@sanity/image-url'
 import {getImageDimensions} from '@sanity/asset-utils'
+import Header from '../components/common/Header'
 function Post() {
   const { postId } = useParams();
   const [post, setPost] = useState(null);
@@ -58,11 +59,11 @@ function Post() {
 
     block:{
       h1: ({children}) => <h1 className="text-2xl text-green-700">{children}</h1>,
-      h2: ({children}) => <h2></h2>
-      h3: ({children}) => <h3></h3>
-      h4: ({children}) => <h4></h4>
-      h5: ({children}) => <h5></h5>
-      h6: ({children}) => <h6></h6>
+      h2: ({children}) => <h2>{children}</h2>,
+      h3: ({children}) => <h3>{children}</h3>,
+      h4: ({children}) => <h4>{children}</h4>,
+      h5: ({children}) => <h5>{children}</h5>,
+      h6: ({children}) => <h6>{children}</h6>,
     },
 
     list: {
@@ -82,6 +83,7 @@ function Post() {
   
   return (
     <div className="container mx-auto">
+      <Header/>
       <h1 className="text-3xl font-bold mt-8 mb-4 text-white">{post.title}</h1>
       <p className="text-white mb-2">{new Date(post.date).toDateString()}</p>
       <div className="prose text-gray-50">

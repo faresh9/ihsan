@@ -19,7 +19,7 @@ const AddHabitForm = ({ onAdd }) => {
         placeholder="Enter habit name"
         value={habitName}
         onChange={e => setHabitName(e.target.value)}
-        className="mr-2 p-2 border border-gray-300"
+        className="mr-2 p-2 border border-gray-300 text-black"
       />
       <button type="submit" className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Add Habit</button>
     </form>

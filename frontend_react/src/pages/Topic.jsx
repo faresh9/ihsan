@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { client } from '../services/sanityService';
 import { Link, useParams } from 'react-router-dom';
-
+import Header from '../components/common/Header';
 function Topic() {
   const [posts, setPosts] = useState([]);
   const { topicId } = useParams(); 
@@ -17,6 +17,7 @@ function Topic() {
 
   return (
     <div className="container mx-auto">
+      <Header/>
       <h1 className="text-3xl font-bold mt-8 mb-4 text-green-50">topic Page</h1>
       <div className="grid grid-cols-1 gap-6 text-gray-50">
         {posts.map((post) => (

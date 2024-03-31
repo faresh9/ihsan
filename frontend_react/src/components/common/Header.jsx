@@ -107,9 +107,9 @@ export default function Header() {
     <AppBar position="static" sx={{ backgroundColor: '#212121', marginBottom:"10px" }} >
       <Container maxWidth="lg" disableGutters="true">
         <Toolbar>
-
+          
             <Typography variant="h6" sx={{flexGrow: 1, fontWeight: 700}}>
-              Ihsan
+            <Link to='/'>Ihsan</Link>
             </Typography>
 
             <Box component="div" sx={{
@@ -165,21 +165,25 @@ export default function Header() {
                   </IconButton>
 
                   <Divider sx={{mb: 2}} />
-                  <Link to='/dashboard'>
+                  
                   <Box sx={{mb: 2}}>
+                  <Link to='/dashboard'>
                     <ListItemButton>
                       <ListItemIcon>
                         <ImageIcon sx={{color: "#34d399"}}/>
                       </ListItemIcon>
                       <ListItemText primary="Dashboard" sx={{ color: '#ffff' }}/>
                     </ListItemButton>
+                    </Link>
 
+                   
                     <ListItemButton>
                       <ListItemIcon>
                         <DescriptionIcon sx={{color: "#34d399"}}/>
                       </ListItemIcon >
                       <ListItemText primary="Documents" sx={{ color: '#ffff' }} />
                     </ListItemButton>
+                      
 
                     <ListItemButton>
                       <ListItemIcon>
@@ -188,7 +192,7 @@ export default function Header() {
                       <ListItemText primary="Other" sx={{ color: '#ffff' }} />
                     </ListItemButton>
                   </Box>
-                  </Link>
+                 
                   
                   {search}
 
