@@ -16,8 +16,12 @@ function Topic() {
   }, [topicId]);
 
   return (
-    <div className="container mx-auto">
+    <>
+    <div>
       <Header/>
+    </div>
+    <div className="container mx-auto">
+      
       <h1 className="text-3xl font-bold mt-8 mb-4 text-green-50">topic Page</h1>
       <div className="grid grid-cols-1 gap-6 text-gray-50">
         {posts.map((post) => (
@@ -35,6 +39,7 @@ function Topic() {
         ))}
       </div>
     </div>
+    </>
   );
 }
 

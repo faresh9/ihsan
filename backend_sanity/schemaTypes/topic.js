@@ -22,8 +22,8 @@ export default {
       },
       {
         name: 'imageUrl',
-        title: 'Image URL',
-        type: 'url', // Assuming the image is stored as a URL
+        title: 'svg',
+        type: 'text', // Assuming the image is stored as a URL
       },
      
     ],

@@ -28,6 +28,7 @@ function Post() {
     const {width, height} = getImageDimensions(value)
     return (
       <img
+      className="block mx-auto mb-6 rounded-lg shadow-lg"
         src={urlBuilder(client)
           .image(value)
           // .width(isInline ? 100 : 800)
@@ -49,41 +50,75 @@ function Post() {
   const ptComponents= {
     types:{
       image: SampleImageComponent,
+      // code: ({ children }) => (
+      //   <pre className="bg-gray-900 p-4 rounded-lg overflow-auto text-gray-100">{children}</pre>
+      // ),
       },
     
     marks: {
       // Ex. 1: custom renderer for the em / italics decorator
-      em: ({children}) => <em className='text-red-900'>{children}</em>,
-      
+     em: ({ children }) => <em className="italic">{children}</em>,
+    strong: ({ children }) => <strong className="font-bold">{children}</strong>,
+    link: ({ children, mark }) => (
+      <a
+        href={mark.href}
+        className="text-blue-500 hover:underline"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {children}
+      </a>
+    ),
+  //   code: ({children}) => <div className="mockup-code">
+  //   <pre data-prefix="~"><code> {children} </code></pre>
+  // </div>
     },
 
     block:{
-      h1: ({children}) => <h1 className="text-2xl text-green-700">{children}</h1>,
-      h2: ({children}) => <h2>{children}</h2>,
-      h3: ({children}) => <h3>{children}</h3>,
-      h4: ({children}) => <h4>{children}</h4>,
-      h5: ({children}) => <h5>{children}</h5>,
-      h6: ({children}) => <h6>{children}</h6>,
+      // Headings
+    h1: ({ children }) => <h1 className="text-4xl font-bold mb-4">{children}</h1>,
+    h2: ({ children }) => <h2 className="text-3xl font-bold mb-3">{children}</h2>,
+    h3: ({ children }) => <h3 className="text-2xl font-bold mb-2">{children}</h3>,
+    h4: ({ children }) => <h4 className="text-xl font-bold mb-2">{children}</h4>,
+    h5: ({ children }) => <h5 className="text-lg font-bold mb-2">{children}</h5>,
+    h6: ({ children }) => <h6 className="text-base font-bold mb-1">{children}</h6>,
+    // Paragraphs
+    p: ({ children }) => <p className="mb-4">{children}</p>,
+    // Blockquote
+    blockquote: ({ children }) => (
+      <blockquote className="border-l-4 border-gray-300 italic pl-4 py-2 mb-4">
+        {children}
+      </blockquote>
+    ),
     },
 
     list: {
-      // Ex. 1: customizing common list types
-      bullet: ({children}) => <ul className="mt-xl">{children}</ul>,
-      number: ({children}) => <ol className="mt-lg">{children}</ol>,
+     // Unordered list
+    bullet: ({ children }) => <ul className="list-disc pl-6 mb-4">{children}</ul>,
+    // Ordered list
+    number: ({ children }) => <ol className="list-decimal pl-6 mb-4">{children}</ol>,
+    // Add more list styles here if needed
     },
 
     listItem: {
-      // Ex. 1: customizing common list types
-      bullet: ({children}) => <li style={{listStyleType: 'disclosure-closed'}}>{children}</li>,
-      number: ({children}) => <li style={{listStyleType: 'number'}}>{children}</li>,
+      // List item for unordered list
+    bullet: ({ children }) => <li className="mb-2">{children}</li>,
+    // List item for ordered list
+    number: ({ children }) => <li className="mb-2">{children}</li>,
+    // Add more list item styles here if needed
     },
   }
 
 
   
   return (
+    <>
+    <div>
+    <Header/>
+    </div>
+    
     <div className="container mx-auto">
-      <Header/>
+      
       <h1 className="text-3xl font-bold mt-8 mb-4 text-white">{post.title}</h1>
       <p className="text-white mb-2">{new Date(post.date).toDateString()}</p>
       <div className="prose text-gray-50">
@@ -97,6 +132,7 @@ function Post() {
         
       </div>
     </div>
+    </>
   );
 }
 

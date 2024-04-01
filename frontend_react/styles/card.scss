@@ -79,6 +79,12 @@ body {
     grid-gap: 32px;
     position: relative;
     z-index: 1;
+    place-content: center;
+
+    @media screen and (min-width: 768px) {
+      grid-template-columns: repeat(3, 340px);
+      
+    }
   }
   
   .card {
@@ -126,6 +132,7 @@ body {
         transform: translateZ();
         color: var(--card-icon-color);
         transition: color .25s;
+        text-align: center;
       }
     }
   
