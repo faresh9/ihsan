@@ -38,5 +38,13 @@ export default {
         type: 'array',
         of: [{ type: 'image' }],
       },
+
+      {
+        name: 'icon',
+        title: 'icon',
+        type: 'text', // Assuming the image is stored as a URL
+      },
     ],
+
+    
   };
