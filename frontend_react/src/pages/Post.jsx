@@ -59,16 +59,16 @@ function Post() {
       // Ex. 1: custom renderer for the em / italics decorator
      em: ({ children }) => <em className="italic">{children}</em>,
     strong: ({ children }) => <strong className="font-bold">{children}</strong>,
-    link: ({ children, mark }) => (
-      <a
-        href={mark.href}
-        className="text-blue-500 hover:underline"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {children}
-      </a>
-    ),
+    // link: ({ children, mark }) => (
+    //   <a
+    //     href={mark.href}
+    //     className="text-blue-500 hover:underline"
+    //     target="_blank"
+    //     rel="noopener noreferrer"
+    //   >
+    //     {children}
+    //   </a>
+    // ),
   //   code: ({children}) => <div className="mockup-code">
   //   <pre data-prefix="~"><code> {children} </code></pre>
   // </div>
@@ -76,7 +76,7 @@ function Post() {
 
     block:{
       // Headings
-    h1: ({ children }) => <h1 className="text-4xl font-bold mb-4">{children}</h1>,
+    h1: ({ children }) => <h1 className="mb-4 text-3xl font-extrabold leading-tight">{children}</h1>,
     h2: ({ children }) => <h2 className="text-3xl font-bold mb-3">{children}</h2>,
     h3: ({ children }) => <h3 className="text-2xl font-bold mb-2">{children}</h3>,
     h4: ({ children }) => <h4 className="text-xl font-bold mb-2">{children}</h4>,
@@ -117,16 +117,18 @@ function Post() {
     <Header/>
     </div>
     
-    <div className="container mx-auto">
-      
+    <div className="container pt-8 pb-16 lg:pt-16 lg:pb-24  antialiased mx-auto w-full max-w-2xl format format-sm sm:format-base lg:format-lg format-blue dark:format-inver">
+      <div className='mb-8'>
       <h1 className="text-3xl font-bold mt-8 mb-4 text-white">{post.title}</h1>
       <p className="text-white mb-2">{new Date(post.date).toDateString()}</p>
       <div className="prose text-gray-50">
-
+      </div>
+      
       <PortableText
   value={post.content}
   components={ptComponents}
 />
+
 
     
         
