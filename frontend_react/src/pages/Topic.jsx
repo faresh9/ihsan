@@ -21,14 +21,13 @@ function Topic() {
     <div>
       <Header/>
     </div>
-    <h1 className="text-3xl font-bold mt-8 mb-4 text-green-50">topic Page</h1>
+    <h1 className="text-3xl font-bold mt-8 mb-4 text-green-50"></h1>
 
     <div className="card-with-link">
     <div className='grid'>
         {posts.map((post) => (
-          <Link to={`/Topic/${topicId}/post/${post._id}`}>
-            
-            <div key={post._id} className="card">
+          <Link to={`/Topic/${topicId}/post/${post._id}`} key={post._id}>
+            <div  className="card">
             <h2 className="text-xl font-semibold mb-2">{post.title}</h2>
             <p className="text-white mb-2">{new Date(post.date).toDateString()}</p>
             <span className="icon" dangerouslySetInnerHTML={{ __html: post.icon }} />

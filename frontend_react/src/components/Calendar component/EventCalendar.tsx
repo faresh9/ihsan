@@ -100,6 +100,7 @@ const EventCalendar = () => {
       const savedTodos = localStorage.getItem('todos');
       if (savedTodos) {
         setTodos(JSON.parse(savedTodos));
+        
       }
     }, []);
     
@@ -110,6 +111,7 @@ const EventCalendar = () => {
 
   useEffect(() => {
     localStorage.setItem('todos', JSON.stringify(todos));
+    console.log(todos)
   }, [todos]);
   
 
