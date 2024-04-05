@@ -91,28 +91,28 @@ const EventCalendar = () => {
 
 
 
-    useEffect(() => {
-      const savedEvents = localStorage.getItem('events');
-      if (savedEvents) {
-        setEvents(JSON.parse(savedEvents));
-      }
+  //   useEffect(() => {
+  //     const savedEvents = localStorage.getItem('events');
+  //     if (savedEvents) {
+  //       setEvents(JSON.parse(savedEvents));
+  //     }
     
-      const savedTodos = localStorage.getItem('todos');
-      if (savedTodos) {
-        setTodos(JSON.parse(savedTodos));
+  //     const savedTodos = localStorage.getItem('todos');
+  //     if (savedTodos) {
+  //       setTodos(JSON.parse(savedTodos));
         
-      }
-    }, []);
+  //     }
+  //   }, []);
     
 
-  useEffect(() => {
-    localStorage.setItem('events', JSON.stringify(events));
-  }, [events]);
+  // useEffect(() => {
+  //   localStorage.setItem('events', JSON.stringify(events));
+  // }, [events]);
 
-  useEffect(() => {
-    localStorage.setItem('todos', JSON.stringify(todos));
-    console.log(todos)
-  }, [todos]);
+  // useEffect(() => {
+  //   localStorage.setItem('todos', JSON.stringify(todos));
+  //   //console.log(todos)
+  // }, [todos]);
   
 
   const handleSelectSlot = (event: Event) => {
@@ -185,6 +185,7 @@ const EventCalendar = () => {
   }
 
 
+  console.log(events)
   // ok if you want to style style here not css
   //|
   //|
@@ -251,7 +252,7 @@ const EventCalendar = () => {
               onSelectEvent={handleSelectEvent}
               onSelectSlot={handleSelectSlot}
               selectable
-              startAccessor={(event) => { return new Date(event.start) }}
+              startAccessor="start"
               components={{ event: EventInfo }}
               endAccessor="end"
               defaultView="month"
