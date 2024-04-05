@@ -155,25 +155,28 @@ const EventCalendar = () => {
     e.preventDefault()
 
     const addHours = (date: Date | undefined, hours: number) => {
-      return date ? date.setHours(date.getHours() + hours) : undefined
+      if (date instanceof Date) {
+        return new Date(date.setHours(date.getHours() + hours))
+      }
+      return undefined
     }
 
     const setMinToZero = (date: any) => {
-      
       if (date instanceof Date) {
-        date.setSeconds(0)
+        let newDate = new Date(date)
+        newDate.setSeconds(0)
+        return newDate
       }
-
-      return date
+      return undefined
     }
 
     const data: IEventInfo = {
       ...datePickerEventFormData,
-      _id: generateId(),
-      start: setMinToZero(datePickerEventFormData.start),
-      end: datePickerEventFormData.allDay
-        ? addHours(datePickerEventFormData.start, 12)
-        : setMinToZero(datePickerEventFormData.end),
+  _id: generateId(),
+  start: setMinToZero(new Date(datePickerEventFormData.start)),
+  end: datePickerEventFormData.allDay
+    ? addHours(new Date(datePickerEventFormData.start), 12)
+    : setMinToZero(new Date(datePickerEventFormData.end)),
     }
 
     const newEvents = [...events, data]
