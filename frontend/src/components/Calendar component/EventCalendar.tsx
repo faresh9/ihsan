@@ -159,7 +159,10 @@ const EventCalendar = () => {
     }
 
     const setMinToZero = (date: any) => {
-      date.setSeconds(0)
+      
+      if (date instanceof Date) {
+        date.setSeconds(0)
+      }
 
       return date
     }
