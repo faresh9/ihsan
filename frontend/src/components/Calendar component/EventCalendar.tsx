@@ -155,28 +155,22 @@ const EventCalendar = () => {
     e.preventDefault()
 
     const addHours = (date: Date | undefined, hours: number) => {
-      if (date instanceof Date) {
-        return new Date(date.setHours(date.getHours() + hours))
-      }
-      return undefined
+      return date ? date.setHours(date.getHours() + hours) : undefined
     }
 
     const setMinToZero = (date: any) => {
-      if (date instanceof Date) {
-        let newDate = new Date(date)
-        newDate.setSeconds(0)
-        return newDate
-      }
-      return undefined
+      date.setSeconds(0)
+
+      return date
     }
 
     const data: IEventInfo = {
       ...datePickerEventFormData,
-  _id: generateId(),
-  start: setMinToZero(new Date(datePickerEventFormData.start)),
-  end: datePickerEventFormData.allDay
-    ? addHours(new Date(datePickerEventFormData.start), 12)
-    : setMinToZero(new Date(datePickerEventFormData.end)),
+      _id: generateId(),
+      start: setMinToZero(datePickerEventFormData.start),
+      end: datePickerEventFormData.allDay
+        ? addHours(datePickerEventFormData.start, 12)
+        : setMinToZero(datePickerEventFormData.end),
     }
 
     const newEvents = [...events, data]
@@ -257,7 +251,7 @@ const EventCalendar = () => {
               onSelectEvent={handleSelectEvent}
               onSelectSlot={handleSelectSlot}
               selectable
-              startAccessor="start"
+              startAccessor={(event) => { return new Date(event.start) }}
               components={{ event: EventInfo }}
               endAccessor="end"
               defaultView="month"
