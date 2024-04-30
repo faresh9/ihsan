@@ -1,12 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const Sequelize = require('sequelize');
-
+const cors = require('cors');
 const app = express();
 
 // Middleware
 app.use(bodyParser.json());
-
+app.use(cors());
 // Database
 const sequelize = new Sequelize('ihsan_db', 'postgres', 'fares1234', {
   host: 'localhost',
@@ -21,11 +21,11 @@ sequelize.authenticate()
 // Routes
 //const authRoutes = require('./routes/auth');
 const todoRoutes = require('./routes/todos');
-//const eventRoutes = require('./routes/events');
+const eventRoutes = require('./routes/events');
 
 //app.use('/auth', authRoutes);
 app.use('/todos', todoRoutes);
-//app.use('/events', eventRoutes);
+app.use('/events', eventRoutes);
 
 // Server
 app.listen(3000, () => console.log('Server is running on port 3000'));

@@ -30,7 +30,25 @@ export const AddTodoModal = ({ open, handleClose, todos, setTodos }: IProps) => 
   const [color, setColor] = useState("#b32aa9")
   const [title, setTitle] = useState("")
 
-  const onAddTodo = () => {
+  const onAddTodo =  async () => {
+    const newTodo = {
+      _id: generateId(),
+      color,
+      title,
+    };
+
+
+    const response = await fetch('http://localhost:3000/todos', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newTodo),
+    });
+  
+    if (!response.ok) {
+      throw new Error('Failed to create todo');
+    }
     setTitle("")
     setTodos([
       ...todos,

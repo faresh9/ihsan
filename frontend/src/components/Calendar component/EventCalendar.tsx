@@ -91,6 +91,46 @@ const EventCalendar = () => {
 
 
 
+    // endpoints
+    // const createTodo = async (todo: ITodo) => {
+    //   const response = await fetch('/api/todos', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify(todo),
+    //   });
+    
+    //   if (!response.ok) {
+    //     throw new Error('Failed to create todo');
+    //   }
+    
+    //   const newTodo = await response.json();
+    //   setTodos((prevTodos) => [...prevTodos, newTodo]);
+    // };
+
+    // const createevent = async (event: IEvent) => {
+    //   const response = await fetch('/api/todos', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify(event),
+    //   });
+    
+    //   if (!response.ok) {
+    //     throw new Error('Failed to create todo');
+    //   }
+    
+    //   const newTodo = await response.json();
+    //   setTodos((prevTodos) => [...prevTodos, newTodo]);
+    // };
+
+
+
+
+
+
   //   useEffect(() => {
   //     const savedEvents = localStorage.getItem('events');
   //     if (savedEvents) {
@@ -135,7 +175,7 @@ const EventCalendar = () => {
     setOpenDatepickerModal(false)
   }
 
-  const onAddEvent = (e: MouseEvent<HTMLButtonElement>) => {
+   const onAddEvent = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
 
     const data: IEventInfo = {
@@ -145,8 +185,23 @@ const EventCalendar = () => {
       end: currentEvent?.end,
     }
 
+    // const response = await fetch('http://localhost:3000/events', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify(data),
+    // });
+
+    // if (!response.ok) {
+    //   throw new Error('Failed to create event');
+    // }
+
+    //const savedEvent = await response.json();
+
     const newEvents = [...events, data]
 
+    //setEvents((prevEvents) => [...prevEvents, savedEvent]);
     setEvents(newEvents)
     handleClose()
   }
