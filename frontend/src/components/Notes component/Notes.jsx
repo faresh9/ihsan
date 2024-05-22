@@ -7,26 +7,26 @@ import NotesHeader from './NotesHeader';
 import '../../../styles/note.css'
 function Notes() {
 	const [notes, setNotes] = useState([
-		// {
-		// 	id: nanoid(),
-		// 	text: 'This is my first note!',
-		// 	date: '15/04/2021',
-		// },
-		// {
-		// 	id: nanoid(),
-		// 	text: 'This is my second note!',
-		// 	date: '21/04/2021',
-		// },
-		// {
-		// 	id: nanoid(),
-		// 	text: 'This is my third note!',
-		// 	date: '28/04/2021',
-		// },
-		// {
-		// 	id: nanoid(),
-		// 	text: 'This is my new note!',
-		// 	date: '30/04/2021',
-		// },
+		{
+			id: nanoid(),
+			text: 'This is my first note!',
+			date: '15/04/2021',
+		},
+		{
+			id: nanoid(),
+			text: 'This is my second note!',
+			date: '21/04/2021',
+		},
+		{
+			id: nanoid(),
+			text: 'This is my third note!',
+			date: '28/04/2021',
+		},
+		{
+			id: nanoid(),
+			text: 'This is my new note!',
+			date: '30/04/2021',
+		},
 	]);
 
 	const [searchText, setSearchText] = useState('');
@@ -57,25 +57,30 @@ function Notes() {
 			.then(data => setNotes(data));
 	}, []);
 
-
-const addNote = (text) => {
-  const date = new Date();
-  const newNote = {
-    id: nanoid(),
-    text: text,
-    date: date.toLocaleDateString(),
-  };
-
-  fetch('http://localhost:3000/notes', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(newNote),
-  })
-    .then(response => response.json())
-    .then(data => setNotes(prevNotes => [...prevNotes, data]));
-};
+	const addNote = (text) => {
+		const date = new Date();
+		const newNote = {
+		  id: nanoid(),
+		  text: text,
+		  date: date.toLocaleDateString(),
+		};
+	  
+		setNotes(prevNotes => [...prevNotes, newNote]);
+	  
+		fetch('http://localhost:3000/notes', {
+		  method: 'POST',
+		  headers: {
+			'Content-Type': 'application/json',
+		  },
+		  body: JSON.stringify(newNote),
+		})
+		  .then(response => response.json())
+		  .catch(error => {
+			// If the server responds with an error, remove the note from the state
+			//setNotes(prevNotes => prevNotes.filter(note => note.id !== newNote.id));
+			console.error('Error:', error);
+		  });
+	  };
 
 const deleteNote = (id) => {
 	fetch(`http://localhost:3000/notes/${id}`, {
