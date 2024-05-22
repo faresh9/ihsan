@@ -22,10 +22,12 @@ sequelize.authenticate()
 //const authRoutes = require('./routes/auth');
 const todoRoutes = require('./routes/todos');
 const eventRoutes = require('./routes/events');
+const noteRoutes = require('./routes/notes');
 
 //app.use('/auth', authRoutes);
 app.use('/todos', todoRoutes);
-app.use('/events', eventRoutes);
+app.use('/notes', noteRoutes);
+
 
 // Server
 app.listen(3000, () => console.log('Server is running on port 3000'));

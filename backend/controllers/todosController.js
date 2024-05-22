@@ -17,12 +17,12 @@ const createTodo = async (req, res) => {
     res.json(response.rows[0]);
   };
 
-const updateTodo = async (req, res) => {
-  const _id = req.params._id;
-  const { title, color} = req.body;
-  const response = await pool.query('UPDATE todos SET title = $1, color = $2 WHERE _id = $3', [title, color, _id]);
-  res.json(response.rows[0]);
-};
+  const updateTodo = async (req, res) => {
+    const _id = req.params._id;
+    const { title, color } = req.body;
+    const response = await pool.query('UPDATE todos SET title = $1, color = $2 WHERE _id = $3 RETURNING *', [title, color, _id]);
+    res.json(response.rows[0]);
+  };
 
 const deleteTodo = async (req, res) => {
   const _id = req.params._id;

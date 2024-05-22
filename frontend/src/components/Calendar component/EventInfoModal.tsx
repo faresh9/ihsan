@@ -1,7 +1,7 @@
 import { SetStateAction, MouseEvent, Dispatch } from "react"
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button, Box, Typography } from "@mui/material"
 import { IEventInfo } from "./EventCalendar"
-
+import React from "react"
 interface IProps {
   open: boolean
   handleClose: Dispatch<SetStateAction<void>>

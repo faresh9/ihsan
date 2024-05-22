@@ -33,38 +33,58 @@ function Notes() {
 
 	const [darkMode, setDarkMode] = useState(false);
 
-	useEffect(() => {
-		const savedNotes = JSON.parse(
-			localStorage.getItem('react-notes-app-data')
-		);
+	// useEffect(() => {
+	// 	const savedNotes = JSON.parse(
+	// 		localStorage.getItem('react-notes-app-data')
+	// 	);
 
-		if (savedNotes) {
-			setNotes(savedNotes);
-		}
+	// 	if (savedNotes) {
+	// 		setNotes(savedNotes);
+	// 	}
+	// }, []);
+
+	// useEffect(() => {
+	// 	localStorage.setItem(
+	// 		'react-notes-app-data',
+	// 		JSON.stringify(notes)
+	// 	);
+	// }, [notes]);
+
+	
+	useEffect(() => {
+		fetch('http://localhost:3000/notes')
+			.then(response => response.json())
+			.then(data => setNotes(data));
 	}, []);
 
-	useEffect(() => {
-		localStorage.setItem(
-			'react-notes-app-data',
-			JSON.stringify(notes)
-		);
-	}, [notes]);
 
-	const addNote = (text) => {
-		const date = new Date();
-		const newNote = {
-			id: nanoid(),
-			text: text,
-			date: date.toLocaleDateString(),
-		};
-		const newNotes = [...notes, newNote];
-		setNotes(newNotes);
-	};
+const addNote = (text) => {
+  const date = new Date();
+  const newNote = {
+    id: nanoid(),
+    text: text,
+    date: date.toLocaleDateString(),
+  };
 
-	const deleteNote = (id) => {
-		const newNotes = notes.filter((note) => note.id !== id);
-		setNotes(newNotes);
-	};
+  fetch('http://localhost:3000/notes', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(newNote),
+  })
+    .then(response => response.json())
+    .then(data => setNotes(prevNotes => [...prevNotes, data]));
+};
+
+const deleteNote = (id) => {
+	fetch(`http://localhost:3000/notes/${id}`, {
+		method: 'DELETE',
+	})
+		.then(() => setNotes(prevNotes => prevNotes.filter(note => note.id !== id)));
+};
+
+console.log(notes);
 
 	return (
 		<div className={`${darkMode && 'dark-mode'}`}>

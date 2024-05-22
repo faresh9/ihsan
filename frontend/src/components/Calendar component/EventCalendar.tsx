@@ -197,9 +197,9 @@ const EventCalendar = () => {
     //   throw new Error('Failed to create event');
     // }
 
-    //const savedEvent = await response.json();
+    // const savedEvent = await response.json();
 
-    const newEvents = [...events, data]
+     const newEvents = [...events, data]
 
     //setEvents((prevEvents) => [...prevEvents, savedEvent]);
     setEvents(newEvents)

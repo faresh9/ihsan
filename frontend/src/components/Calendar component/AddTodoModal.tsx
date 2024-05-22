@@ -1,4 +1,4 @@
-import { useState, Dispatch, SetStateAction } from "react"
+import { useState, Dispatch, SetStateAction, useEffect } from "react"
 import {
   Dialog,
   DialogActions,
@@ -30,6 +30,22 @@ export const AddTodoModal = ({ open, handleClose, todos, setTodos }: IProps) => 
   const [color, setColor] = useState("#b32aa9")
   const [title, setTitle] = useState("")
 
+
+  useEffect(() => {
+    const fetchTodos = async () => {
+      const response = await fetch('http://localhost:3000/todos');
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch todos');
+      }
+
+      const todos = await response.json();
+      setTodos(todos);
+    };
+
+    fetchTodos();
+  }, []);
+
   const onAddTodo =  async () => {
     const newTodo = {
       _id: generateId(),
@@ -60,8 +76,18 @@ export const AddTodoModal = ({ open, handleClose, todos, setTodos }: IProps) => 
     ])
   }
 
-  const onDeletetodo = (_id: string) => setTodos(todos.filter((todo) => todo._id !== _id))
-
+  const onDeletetodo = async (_id: string) => {
+    const response = await fetch(`http://localhost:3000/todos/${_id}`, {
+      method: 'DELETE',
+    });
+  
+    if (!response.ok) {
+      throw new Error('Failed to delete todo');
+    }
+  
+    setTodos(todos.filter((todo) => todo._id !== _id));
+  };
+  
   const onClose = () => handleClose()
 
   return (
