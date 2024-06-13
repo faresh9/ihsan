@@ -175,48 +175,64 @@ const EventCalendar = () => {
     setOpenDatepickerModal(false)
   }
 
-   const onAddEvent = async (e: MouseEvent<HTMLButtonElement>) => {
+  const onAddEvent = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
-
+  
     const data: IEventInfo = {
       ...eventFormData,
       _id: generateId(),
       start: currentEvent?.start,
       end: currentEvent?.end,
     }
-
-    // const response = await fetch('http://localhost:3000/events', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify(data),
-    // });
-
-    // if (!response.ok) {
-    //   throw new Error('Failed to create event');
-    // }
-
-    // const savedEvent = await response.json();
-
-     const newEvents = [...events, data]
-
-    //setEvents((prevEvents) => [...prevEvents, savedEvent]);
-    setEvents(newEvents)
-    handleClose()
+    console.log('onAddEvent called');
+    console.log('About to fetch');
+    try {
+      const response = await fetch('http://localhost:3000/events', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          allDay: data.allDay,
+          description: data.description,
+          start: data.start,
+          end: data.end,
+          todoId: data.todoId,
+          _id:data._id
+        }),
+      });
+      
+      if (!response.ok) {
+        const responseBody = await response.text();
+        console.log('Response body:', responseBody);
+        throw new Error('Failed to create event');
+      }
+      
+      const savedEvent = await response.json();
+      console.log('Saved event:', savedEvent);
+      
+      setEvents((prevEvents) => [...prevEvents, savedEvent]);
+      handleClose();
+    } catch (error) {
+      console.error('Error:', error);
+    }
   }
 
   const onAddEventFromDatePicker = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
 
     const addHours = (date: Date | undefined, hours: number) => {
-      return date ? date.setHours(date.getHours() + hours) : undefined
+      if (!date) return undefined;
+      let newDate = new Date(date);
+      newDate.setHours(newDate.getHours() + hours);
+      return newDate;
     }
 
-    const setMinToZero = (date: any) => {
-      date.setSeconds(0)
-
-      return date
+    const setMinToZero = (date: Date | undefined) => {
+      if (!date) return undefined;
+      let newDate = new Date(date);
+      newDate.setSeconds(0);
+      return newDate;
     }
 
     const data: IEventInfo = {
