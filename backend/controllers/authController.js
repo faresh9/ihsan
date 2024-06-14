@@ -1,3 +1,4 @@
+//backend/controllers/authController.js
 const express = require('express');
 const router = express.Router();
 const pool = require('../ihsanModel');
@@ -25,8 +26,9 @@ try{
         [id, username, email, hashedPassword]
     );
      // Create a JWT token
-     const token = jwt.sign({ id: newUser.rows[0].id }, 'jwtSecret');
+     const token = jwt.sign({ id: newUser.rows[0].id }, process.env.JWT_SECRET);
      res.json({ token });
+     console.log(token)
     
 } catch (err) {
     console.error(err.message);
@@ -53,12 +55,25 @@ const userLogin = async (req, res) => {
         }
 
         // Create a JWT token
-        const token = jwt.sign({ id: user.rows[0].id}, 'eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTcxODMwODQ1OSwiaWF0IjoxNzE4MzA4NDU5fQ.S9m2bVI3M685cMlqsPFaHe3n392cexdBRzIF2scsJfE');
+        const token = jwt.sign({ id: user.rows[0].id}, process.env.JWT_SECRET);
             res.json({ token });
+        // verify the token
+        jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+            if (err) {
+            console.log('Token is invalid');
+            } else {
+            console.log('Token is valid');
+            console.log(decoded);
+            }
+        });
+
+            
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server error');
     }
+
+
 }
 
 module.exports = {

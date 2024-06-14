@@ -1,3 +1,4 @@
+//fronend/src/components/Calendar component/AddTodoModal.tsx
 import { useState, Dispatch, SetStateAction, useEffect } from "react"
 import {
   Dialog,
@@ -33,35 +34,47 @@ export const AddTodoModal = ({ open, handleClose, todos, setTodos }: IProps) => 
 
   useEffect(() => {
     const fetchTodos = async () => {
-      const response = await fetch('http://localhost:3000/todos');
-
+      const token = localStorage.getItem('token');
+      if (!token) {
+        throw new Error('No token found');
+      }
+  
+      const response = await fetch('http://localhost:3000/todos', {
+        headers: {
+          'Authorization': `Bearer ${token}`, // Include 'Bearer' before the token
+        },
+      });
+  
       if (!response.ok) {
         throw new Error('Failed to fetch todos');
       }
-
+  
       const todos = await response.json();
       setTodos(todos);
     };
-
+  
     fetchTodos();
   }, []);
+  
 
   const onAddTodo =  async () => {
+
     const newTodo = {
       _id: generateId(),
       color,
       title,
     };
-
-
+console.log(newTodo);
+console.log(localStorage.getItem('token'))
     const response = await fetch('http://localhost:3000/todos', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('token')}`, // Include 'Bearer' before the token
       },
       body: JSON.stringify(newTodo),
     });
-  
+    
     if (!response.ok) {
       throw new Error('Failed to create todo');
     }
@@ -77,8 +90,16 @@ export const AddTodoModal = ({ open, handleClose, todos, setTodos }: IProps) => 
   }
 
   const onDeletetodo = async (_id: string) => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      throw new Error('No token found');
+    }
+  
     const response = await fetch(`http://localhost:3000/todos/${_id}`, {
       method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`, // Include 'Bearer' before the token
+      },
     });
   
     if (!response.ok) {
@@ -87,6 +108,7 @@ export const AddTodoModal = ({ open, handleClose, todos, setTodos }: IProps) => 
   
     setTodos(todos.filter((todo) => todo._id !== _id));
   };
+  
   
   const onClose = () => handleClose()
 
