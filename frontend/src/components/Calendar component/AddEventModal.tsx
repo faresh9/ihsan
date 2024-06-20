@@ -1,16 +1,17 @@
+//frontend/src/components/Calendar component/AddEventModal.tsx
 import { ChangeEvent, Dispatch, MouseEvent, SetStateAction } from "react"
 import {
-  TextField,
+  TextFieldProps,
   Dialog,
   DialogActions,
-  DialogContent,
-  DialogContentText,
+  DialogContentTextProps,
   DialogTitle,
   Button,
-  Autocomplete,
-  Box,
+  AutocompleteProps,
+  BoxProps,
 } from "@mui/material"
 import { EventFormData, ITodo } from "./EventCalendar"
+import React from "react"
 
 interface IProps {
   open: boolean

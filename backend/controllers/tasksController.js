@@ -1,4 +1,4 @@
-//backend/controllers/todosController.js
+// backend/controllers/tasksController.js
 const pool = require('../ihsanModel');
 const jwt = require('jsonwebtoken');
 
@@ -26,14 +26,14 @@ const getUserId = (req) => {
   }
 };
 
-const getAllTodos = async (req, res) => {
+const getAllTasks = async (req, res) => {
   const userId = getUserId(req);
   if (!userId) {
     return res.status(401).json({ message: 'Unauthorized' });
   }
 
   try {
-    const response = await pool.query('SELECT * FROM todos WHERE "userId" = $1', [userId]);
+    const response = await pool.query('SELECT * FROM tasks WHERE "userId" = $1', [userId]);
     res.json(response.rows);
   } catch (err) {
     console.error(err.message);
@@ -41,15 +41,15 @@ const getAllTodos = async (req, res) => {
   }
 };
 
-const getTodo = async (req, res) => {
-  const _id = req.params._id;
+const getTask = async (req, res) => {
+  const id = req.params.id;
   const userId = getUserId(req);
   if (!userId) {
     return res.status(401).json({ message: 'Unauthorized' });
   }
 
   try {
-    const response = await pool.query('SELECT * FROM todos WHERE _id = $1 AND "userId" = $2', [_id, userId]);
+    const response = await pool.query('SELECT * FROM tasks WHERE id = $1 AND "userId" = $2', [id, userId]);
     res.json(response.rows[0]);
   } catch (err) {
     console.error(err.message);
@@ -57,15 +57,15 @@ const getTodo = async (req, res) => {
   }
 };
 
-const createTodo = async (req, res) => {
-  const { _id, title, color } = req.body;
+const createTask = async (req, res) => {
+  const { name } = req.body;
   const userId = getUserId(req);
   if (!userId) {
     return res.status(401).json({ message: 'Unauthorized' });
   }
 
   try {
-    const response = await pool.query('INSERT INTO todos (_id, title, color, "userId") VALUES ($1, $2, $3, $4) RETURNING *', [_id, title, color, userId]);
+    const response = await pool.query('INSERT INTO tasks (name, completed, "userId") VALUES ($1, $2, $3) RETURNING *', [name, false, userId]);
     res.json(response.rows[0]);
   } catch (err) {
     console.error(err.message);
@@ -73,16 +73,16 @@ const createTodo = async (req, res) => {
   }
 };
 
-const updateTodo = async (req, res) => {
-  const _id = req.params._id;
-  const { title, color } = req.body;
+const updateTask = async (req, res) => {
+  const id = req.params.id;
+  const { name, completed } = req.body;
   const userId = getUserId(req);
   if (!userId) {
     return res.status(401).json({ message: 'Unauthorized' });
   }
 
   try {
-    const response = await pool.query('UPDATE todos SET title = $1, color = $2 WHERE _id = $3 AND "userId" = $4 RETURNING *', [title, color, _id, userId]);
+    const response = await pool.query('UPDATE tasks SET name = $1, completed = $2 WHERE id = $3 AND "userId" = $4 RETURNING *', [name, completed, id, userId]);
     res.json(response.rows[0]);
   } catch (err) {
     console.error(err.message);
@@ -90,25 +90,26 @@ const updateTodo = async (req, res) => {
   }
 };
 
-const deleteTodo = async (req, res) => {
-  const _id = req.params._id;
+const deleteTask = async (req, res) => {
+  const id = req.params.id;
   const userId = getUserId(req);
   if (!userId) {
     return res.status(401).json({ message: 'Unauthorized' });
   }
 
   try {
-    const response = await pool.query('DELETE FROM todos WHERE _id = $1 AND "userId" = $2', [_id, userId]);
-    res.json(response);
+    const response = await pool.query('DELETE FROM tasks WHERE id = $1 AND "userId" = $2', [id, userId]);
+    res.json({ message: 'Task deleted successfully' });
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server error');
   }
 };
+
 module.exports = {
-  getAllTodos,
-  getTodo,
-  createTodo,
-  updateTodo,
-  deleteTodo,
+  getAllTasks,
+  getTask,
+  createTask,
+  updateTask,
+  deleteTask,
 };

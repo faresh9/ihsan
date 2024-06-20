@@ -20,15 +20,17 @@ sequelize.authenticate()
   .catch(err => console.log('Error: ' + err))
 
 // Routes
-const todoRoutes = require('./routes/todos');
+const tasksRoutes = require('./routes/tasks');
 const eventRoutes = require('./routes/events');
 const noteRoutes = require('./routes/notes');
 const authRouter = require('./routes/auth');
+const habitsRoutes = require('./routes/habits');
 
 app.use('/events', eventRoutes);
-app.use('/todos', todoRoutes);
+app.use('/tasks', tasksRoutes);
 app.use('/notes', noteRoutes);
 app.use('/auth', authRouter);
+app.use('/habits', habitsRoutes);
 
 
 // Server

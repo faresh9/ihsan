@@ -1,3 +1,4 @@
+//frontend/src/components/Calendar component/EventCalendar.tsx
 import React from 'react'
 import { useState, MouseEvent, useEffect } from "react"
 import { Box, Button, ButtonGroup, Card, CardContent, CardHeader, Container, Divider } from "@mui/material"
@@ -89,70 +90,6 @@ const EventCalendar = () => {
     useState<DatePickerEventFormData>(initialDatePickerEventFormData)
 
 
-
-
-    // endpoints
-    // const createTodo = async (todo: ITodo) => {
-    //   const response = await fetch('/api/todos', {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify(todo),
-    //   });
-    
-    //   if (!response.ok) {
-    //     throw new Error('Failed to create todo');
-    //   }
-    
-    //   const newTodo = await response.json();
-    //   setTodos((prevTodos) => [...prevTodos, newTodo]);
-    // };
-
-    // const createevent = async (event: IEvent) => {
-    //   const response = await fetch('/api/todos', {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify(event),
-    //   });
-    
-    //   if (!response.ok) {
-    //     throw new Error('Failed to create todo');
-    //   }
-    
-    //   const newTodo = await response.json();
-    //   setTodos((prevTodos) => [...prevTodos, newTodo]);
-    // };
-
-
-
-
-
-
-  //   useEffect(() => {
-  //     const savedEvents = localStorage.getItem('events');
-  //     if (savedEvents) {
-  //       setEvents(JSON.parse(savedEvents));
-  //     }
-    
-  //     const savedTodos = localStorage.getItem('todos');
-  //     if (savedTodos) {
-  //       setTodos(JSON.parse(savedTodos));
-        
-  //     }
-  //   }, []);
-    
-
-  // useEffect(() => {
-  //   localStorage.setItem('events', JSON.stringify(events));
-  // }, [events]);
-
-  // useEffect(() => {
-  //   localStorage.setItem('todos', JSON.stringify(todos));
-  //   //console.log(todos)
-  // }, [todos]);
   
 
   const handleSelectSlot = (event: Event) => {
@@ -177,7 +114,7 @@ const EventCalendar = () => {
 
   const onAddEvent = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
-  
+    console.log('onAddEvent called');
     const data: IEventInfo = {
       ...eventFormData,
       _id: generateId(),
@@ -200,6 +137,7 @@ const EventCalendar = () => {
           todoId: data.todoId,
           _id:data._id
         }),
+        
       });
       
       if (!response.ok) {
@@ -213,6 +151,7 @@ const EventCalendar = () => {
       
       setEvents((prevEvents) => [...prevEvents, savedEvent]);
       handleClose();
+      console.log('response',response);
     } catch (error) {
       console.error('Error:', error);
     }
@@ -256,7 +195,21 @@ const EventCalendar = () => {
   }
 
 
-  console.log(events)
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/events');
+        if (!response.ok) {
+          throw new Error('Failed to fetch events');
+        }
+        const events = await response.json();
+        setEvents(events);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    }
+    fetchEvents();
+  }, []);
   // ok if you want to style style here not css
   //|
   //|

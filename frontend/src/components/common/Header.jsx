@@ -1,5 +1,6 @@
 import { useState } from "react";
 import {Link} from 'react-router-dom'
+//import { AuthContext } from './AuthContext'; 
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
@@ -204,8 +205,16 @@ export default function Header() {
                     left: "50%", 
                     transform: "translate(-50%, 0)"}}
                   >
-                    <Button variant="contained" sx={{m:1, width: .5, backgroundColor:"#34d399"}}>Register</Button>
-                    <Button variant="outlined" sx={{m:1, width: .5, backgroundColor:"#34d399"}}>Login</Button> 
+                    <Button variant="contained" sx={{m:1, width: .5, backgroundColor:"#34d399"}}>
+                     <Link to='/register' style={{color: "#ffff"}}>
+                      Register
+                      </Link>
+                    </Button>
+                    <Button variant="outlined" sx={{m:1, width: .5, backgroundColor:"#34d399"}}>
+                      <Link to='/login' style={{color: "#ffff"}}>
+                      Login
+                      </Link>
+                      </Button> 
                   </Box>
                 </Box>
               
