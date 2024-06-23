@@ -1,8 +1,41 @@
 const pool = require('../ihsanModel');
+const jwt = require('jsonwebtoken');
+
+const getUserId = (req) => {
+  const authHeader = req.headers['authorization'];
+  if (!authHeader) {
+    console.log('No Authorization header');
+    return null;
+  }
+
+  const token = authHeader.split(' ')[1]; // Extract the token after 'Bearer'
+  if (!token) {
+    console.log('No token found');
+    return null;
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    console.log('Token decoded successfully:', decoded);
+    return decoded.id;
+  } catch (err) {
+    console.error('Token verification failed:', err.message);
+    return null;
+  }
+};
 
 const getAllEvents = async (req, res) => {
-  const response = await pool.query('SELECT * FROM events');
+  const userId = getUserId(req);
+  if (!userId) {
+    return res.status(401).json({ message: 'Unauthorized' });
+  }
+  try{
+  const response = await pool.query('SELECT * FROM events WHERE "userId" = $1', [userId]);
   res.json(response.rows);
+  } catch (error) {
+    console.error('Error fetching events:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
 };
 
 const getEvent = async (req, res) => {
@@ -12,9 +45,18 @@ const getEvent = async (req, res) => {
 };
 
 const createEvent = async (req, res) => {
+  const userId = getUserId(req);
+    if (!userId) {
+      return res.status(401).json({ message: 'Unauthorized' });
+    }
+    try{
   const { id, title, theme, date} = req.body;
-  const response = await pool.query('INSERT INTO events (id, title, theme, date) VALUES ($1, $2, $3, $4) RETURNING *', [id, title, theme, date]);
+  const response = await pool.query('INSERT INTO events (id, title, theme, date, "userId") VALUES ($1, $2, $3, $4, $5) RETURNING *', [id, title, theme, date, userId]);
   res.json(response.rows[0]);
+  } catch (error) {
+    console.error('Error creating event:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
 };
 
 const updateEvent = async (req, res) => {

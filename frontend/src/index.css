@@ -2,28 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
-
-/* Custom styles */
-body {
-  @apply bg-gray-900 text-white;
-}
-
-.input:focus,
-select:focus,
-textarea:focus,
-button:focus {
-  @apply outline-none;
-}
-
-/* Toggle switch for dark mode */
-.toggle-checkbox:checked {
-  @apply right-0 border-green-400 bg-green-400;
-}
-
-.toggle-label {
-  @apply w-12 h-6 bg-gray-400 rounded-full shadow-inner cursor-pointer;
-}
-
-.toggle-label:before {
-  @apply block w-4 h-4 rounded-full bg-white shadow
+.loading-indicator:before {
+    content: '';
+    background: #00000080;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+  }
+  
+  .loading-indicator:after {
+    content: ' ';
+    position: fixed;
+    top: 40%;
+    left: 45%;
+    z-index: 10010;
+    color:white;
+    text-align:center;
+    font-weight:bold;
+    font-size:1.2rem;        
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #0474bf; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
 }
