@@ -1,25 +1,28 @@
 // src/features/calendar/index.js
 import { useState, useEffect } from 'react';
+import CalendarView from '../../components/CalendarView';
 import moment from 'moment';
 import { useDispatch } from 'react-redux';
 import { openRightDrawer } from '../common/rightDrawerSlice';
 import { RIGHT_DRAWER_TYPES } from '../../utils/globalConstantUtil';
 import { showNotification } from '../common/headerSlice';
-import CalendarView from '../../components/CalendarView';
 import AddEventModal from '../../components/CalendarView/AddEventModal';
 
 function Calendar() {
   const dispatch = useDispatch();
-  const [events, setEvents] = useState([]); // State to store fetched events
-  const [isModalOpen, setIsModalOpen] = useState(false); // State to control the modal visibility
-  const [selectedDate, setSelectedDate] = useState(moment()); // State to store the selected date for adding an event
 
-  // Fetch events from the backend
+  const [events, setEvents] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(moment());
+  const [eventToEdit, setEventToEdit] = useState(null);
+
   useEffect(() => {
     const fetchEvents = async () => {
       try {
         const token = localStorage.getItem('token');
-        if (!token) throw new Error('No token found');
+        if (!token) {
+          throw new Error('No token found');
+        }
 
         const response = await fetch('http://localhost:3000/events', {
           headers: {
@@ -27,7 +30,9 @@ function Calendar() {
           },
         });
 
-        if (!response.ok) throw new Error('Failed to fetch events');
+        if (!response.ok) {
+          throw new Error('Failed to fetch events');
+        }
 
         const events = await response.json();
         setEvents(events);
@@ -39,13 +44,12 @@ function Calendar() {
     fetchEvents();
   }, []);
 
-  // Handle opening the modal and setting the selected date
   const addNewEvent = (date) => {
     setSelectedDate(date);
+    setEventToEdit(null); // Clear any event being edited
     setIsModalOpen(true);
   };
 
-  // Handle adding a new event
   const handleAddEvent = async (eventDetails) => {
     try {
       const newEventObj = {
@@ -55,7 +59,6 @@ function Calendar() {
         date: eventDetails.date,
       };
 
-      console.log('Adding event:', newEventObj);
       const response = await fetch('http://localhost:3000/events', {
         method: 'POST',
         headers: {
@@ -65,7 +68,9 @@ function Calendar() {
         body: JSON.stringify(newEventObj),
       });
 
-      if (!response.ok) throw new Error('Failed to create event');
+      if (!response.ok) {
+        throw new Error('Failed to create event');
+      }
 
       const createdEvent = await response.json();
       setEvents((prevEvents) => [...prevEvents, createdEvent]);
@@ -76,7 +81,26 @@ function Calendar() {
     }
   };
 
-  // Handle opening the day detail
+  const handleDeleteEvent = async (eventId) => {
+    try {
+      const response = await fetch(`http://localhost:3000/events/${eventId}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete event');
+      }
+
+      setEvents((prevEvents) => prevEvents.filter(event => event.id !== eventId));
+      dispatch(showNotification({ message: "Event Deleted!", status: 1 }));
+    } catch (error) {
+      console.error('Error deleting event:', error);
+    }
+  };
+
   const openDayDetail = ({ filteredEvents, title }) => {
     dispatch(openRightDrawer({
       header: title,
@@ -91,12 +115,14 @@ function Calendar() {
         calendarEvents={events}
         addNewEvent={addNewEvent}
         openDayDetail={openDayDetail}
+        onDeleteEvent={handleDeleteEvent} // Pass delete handler to CalendarView
       />
       <AddEventModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onAddEvent={handleAddEvent}
         initialDate={selectedDate}
+        eventToEdit={eventToEdit}
       />
     </>
   );

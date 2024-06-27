@@ -16,6 +16,7 @@ function Header(){
     const dispatch = useDispatch()
     const {noOfNotifications, pageTitle} = useSelector(state => state.header)
     const [currentTheme, setCurrentTheme] = useState(localStorage.getItem("theme"))
+    const [img, setImg] = useState("https://cdn-icons-png.flaticon.com/512/149/149071.png");
 
     useEffect(() => {
         themeChange(false)
@@ -29,6 +30,34 @@ function Header(){
         // 👆 false parameter is required for react project
       }, [])
 
+      useEffect(() => {
+        const fetchImage = async () => {
+          try {
+            const token = localStorage.getItem('token');
+            if (!token) {
+              throw new Error('No token found');
+            }
+    
+            const response = await fetch('http://localhost:3000/user', {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            });
+            
+            if (!response.ok) {
+              throw new Error('Failed to fetch image');
+            }
+    
+            const data = await response.json();
+            console.log("data", data[0].image)
+            setImg(data[0].image);
+          } catch (error) {
+            console.error('Error fetching image:', error);
+          }
+        };
+    
+        fetchImage();
+      }, []);
 
     // Opening right sidebar for notification
     const openNotification = () => {
@@ -88,19 +117,19 @@ function Header(){
 
 
                 {/* Notification icon */}
-                <button className="btn btn-ghost ml-4  btn-circle" onClick={() => openNotification()}>
+                {/* <button className="btn btn-ghost ml-4  btn-circle" onClick={() => openNotification()}>
                     <div className="indicator">
                         <BellIcon className="h-6 w-6"/>
                         {noOfNotifications > 0 ? <span className="indicator-item badge badge-secondary badge-sm">{noOfNotifications}</span> : null }
                     </div>
-                </button>
+                </button> */}
 
 
                 {/* Profile icon, opening menu on click */}
                 <div className="dropdown dropdown-end ml-4">
                     <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                         <div className="w-10 rounded-full">
-                        <img src="https://icons.iconarchive.com/icons/google/noto-emoji-people-face/256/10152-man-icon.png" alt="profile" />
+                        <img src={img} alt="profile" />
                         </div>
                     </label>
                     <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
@@ -110,7 +139,7 @@ function Header(){
                             <span className="badge">New</span>
                             </Link>
                         </li>
-                        <li className=''><Link to={'/app/settings-billing'}>Bill History</Link></li>
+                        {/* <li className=''><Link to={'/app/settings-billing'}>Bill History</Link></li> */}
                         <div className="divider mt-0 mb-0"></div>
                         <li><a onClick={logoutUser}>Logout</a></li>
                     </ul>

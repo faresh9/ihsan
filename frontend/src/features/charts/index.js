@@ -6,8 +6,7 @@ import ScatterChart from './components/ScatterChart'
 import StackBarChart from './components/StackBarChart'
 import Datepicker from "react-tailwindcss-datepicker"; 
 import { useState } from 'react'
-
-
+import withComingSoon from '../../routes/withComingSoon';
 
 
 function Charts(){
@@ -55,4 +54,4 @@ function Charts(){
     )
 }
 
-export default Charts
+export default withComingSoon(Charts)

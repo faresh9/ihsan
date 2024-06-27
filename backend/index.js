@@ -25,12 +25,14 @@ const eventRoutes = require('./routes/events');
 const noteRoutes = require('./routes/notes');
 const authRouter = require('./routes/auth');
 const habitsRoutes = require('./routes/habits');
+const userRoutes = require('./routes/user');
 
 app.use('/events', eventRoutes);
 app.use('/tasks', tasksRoutes);
 app.use('/notes', noteRoutes);
 app.use('/auth', authRouter);
 app.use('/habits', habitsRoutes);
+app.use('/user', userRoutes);
 
 
 // Server

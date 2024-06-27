@@ -40,7 +40,8 @@ const getAllEvents = async (req, res) => {
 
 const getEvent = async (req, res) => {
   const id = req.params.id;
-  const response = await pool.query('SELECT * FROM events WHERE id = $1', [id]);
+  const userId = getUserId(req);
+  const response = await pool.query('SELECT * FROM events WHERE id = $1 AND "userId" = $2', [id, userId]);
   res.json(response.rows[0]);
 };
 
@@ -67,9 +68,19 @@ const updateEvent = async (req, res) => {
 };
 const deleteEvent = async (req, res) => {
   const id = req.params.id;
-  const response = await pool.query('DELETE FROM events WHERE id = $1', [id]);
-  res.json({ message: 'Event deleted successfully' });
-};
+  const userId = getUserId(req);
+  if (!userId) {
+    return res.status(401).json({ message: 'Unauthorized' });
+  }
+
+  try {
+    const response = await pool.query('DELETE FROM events WHERE id = $1 AND "userId" = $2', [id, userId]);
+    res.json({ message: 'Task deleted successfully' });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+}
 
 module.exports = {
   getAllEvents,

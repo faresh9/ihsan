@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 const Tasks = () => {
   const [taskName, setTaskName] = useState('');
   const [tasks, setTasks] = useState([]);
-
+  
   useEffect(() => {
     const fetchTasks = async () => {
       try {
@@ -17,7 +17,7 @@ const Tasks = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-
+        
         if (!response.ok) {
           throw new Error('Failed to fetch tasks');
         }

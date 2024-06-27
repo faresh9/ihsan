@@ -7,7 +7,7 @@ import { RECENT_TRANSACTIONS } from "../../utils/dummyData"
 import FunnelIcon from '@heroicons/react/24/outline/FunnelIcon'
 import XMarkIcon from '@heroicons/react/24/outline/XMarkIcon'
 import SearchBar from "../../components/Input/SearchBar"
-
+import withComingSoon from '../../routes/withComingSoon';
 const TopSideButtons = ({removeFilter, applyFilter, applySearch}) => {
 
     const [filterParam, setFilterParam] = useState("")
@@ -125,4 +125,4 @@ function Transactions(){
 }
 
 
-export default Transactions
+export default withComingSoon(Transactions);

@@ -33,21 +33,26 @@ const projectsData = [
 
 const Projects = () => {
   return (
-    <div className="grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 gap-6">
-      {projectsData.map((project) => (
-        <div key={project.id} className="card w-full bg-base-100 shadow-xl">
-          <figure>
-            <img src={project.image} alt={project.name} className="w-full h-48 object-cover" />
-          </figure>
-          <div className="card-body">
-            <h2 className="card-title">{project.name}</h2>
-            <p>{project.description}</p>
-            <div className="badge badge-outline">
-              {project.status}
+    <div className="relative">
+      <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center z-10">
+        <span className="text-white text-4xl font-bold">Coming Soon</span>
+      </div>
+      <div className="grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 gap-6">
+        {projectsData.map((project) => (
+          <div key={project.id} className="card w-full bg-base-100 shadow-xl">
+            <figure>
+              <img src={project.image} alt={project.name} className="w-full h-48 object-cover" />
+            </figure>
+            <div className="card-body">
+              <h2 className="card-title">{project.name}</h2>
+              <p>{project.description}</p>
+              <div className="badge badge-outline">
+                {project.status}
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 }

@@ -2,7 +2,7 @@ import { useState } from "react"
 import { useDispatch } from "react-redux"
 import TitleCard from "../../components/Cards/TitleCard"
 import { showNotification } from "../common/headerSlice"
-
+import withComingSoon from '../../routes/withComingSoon';
 
 const INITIAL_INTEGRATION_LIST = [
     {name : "Slack", icon : "https://cdn-icons-png.flaticon.com/512/2111/2111615.png", isActive : true, description : "Slack is an instant messaging program designed by Slack Technologies and owned by Salesforce."},
@@ -57,4 +57,4 @@ function Integration(){
     )
 }
 
-export default Integration
+export default withComingSoon(Integration)

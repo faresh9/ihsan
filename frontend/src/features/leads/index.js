@@ -7,6 +7,7 @@ import { deleteLead, getLeadsContent } from "./leadSlice"
 import { CONFIRMATION_MODAL_CLOSE_TYPES, MODAL_BODY_TYPES } from '../../utils/globalConstantUtil'
 import TrashIcon from '@heroicons/react/24/outline/TrashIcon'
 import { showNotification } from '../common/headerSlice'
+import withComingSoon from '../../routes/withComingSoon';
 
 const TopSideButtons = () => {
 
@@ -101,4 +102,4 @@ function Leads(){
 }
 
 
-export default Leads
+export default withComingSoon(Leads);
