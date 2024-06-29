@@ -8,16 +8,28 @@ const app = express();
 // Middleware
 app.use(bodyParser.json());
 app.use(cors());
+
 // Database
-const sequelize = new Sequelize('ihsan_db', 'postgres', 'fares1234', {
-  host: 'localhost',
-  dialect: 'postgres',
-});
+const sequelize = new Sequelize(
+  process.env.DB_NAME,
+  process.env.DB_USER,
+  process.env.DB_PASSWORD,
+  {
+    host: process.env.DB_HOST,
+    dialect: 'postgres',
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false // This setting is necessary if the SSL certificate is self-signed or not trusted by default.
+      }
+    },
+  }
+);
 
 // Test DB
 sequelize.authenticate()
   .then(() => console.log('Database connected...'))
-  .catch(err => console.log('Error: ' + err))
+  .catch(err => console.log('Error: ' + err));
 
 // Routes
 const tasksRoutes = require('./routes/tasks');
@@ -34,6 +46,6 @@ app.use('/auth', authRouter);
 app.use('/habits', habitsRoutes);
 app.use('/user', userRoutes);
 
-
 // Server
-app.listen(process.env.PORT, () => console.log('Server is running on port 3000'));
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
