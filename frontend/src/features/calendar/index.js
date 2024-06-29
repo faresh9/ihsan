@@ -24,7 +24,7 @@ function Calendar() {
           throw new Error('No token found');
         }
 
-        const response = await fetch('http://localhost:3000/events', {
+        const response = await fetch('https://ihsan-backend-smoky.vercel.app/events', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -59,7 +59,7 @@ function Calendar() {
         date: eventDetails.date,
       };
 
-      const response = await fetch('http://localhost:3000/events', {
+      const response = await fetch('https://ihsan-backend-smoky.vercel.app/events', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -83,7 +83,7 @@ function Calendar() {
 
   const handleDeleteEvent = async (eventId) => {
     try {
-      const response = await fetch(`http://localhost:3000/events/${eventId}`, {
+      const response = await fetch(`https://ihsan-backend-smoky.vercel.app/events/${eventId}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,

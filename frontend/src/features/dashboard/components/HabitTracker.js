@@ -131,7 +131,7 @@ const HabitTracker = () => {
           throw new Error('No token found');
         }
 
-        const response = await fetch('http://localhost:3000/habits', {
+        const response = await fetch('https://ihsan-backend-smoky.vercel.app/habits', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -173,7 +173,7 @@ const HabitTracker = () => {
     // Optionally, persist the reset progress to the server
     habitData.forEach(async (habit) => {
       try {
-        await fetch(`http://localhost:3000/habits/${habit.id}`, {
+        await fetch(`https://ihsan-backend-smoky.vercel.app/habits/${habit.id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -201,7 +201,7 @@ const HabitTracker = () => {
       };
 
       console.log('Adding habit:', JSON.stringify(newHabit));
-      const response = await fetch('http://localhost:3000/habits', {
+      const response = await fetch('https://ihsan-backend-smoky.vercel.app/habits', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -227,7 +227,7 @@ const HabitTracker = () => {
   // Function to update habit progress
   const updateProgress = async (id, newProgress) => {
     try {
-      const response = await fetch(`http://localhost:3000/habits/${id}`, {
+      const response = await fetch(`https://ihsan-backend-smoky.vercel.app/habits/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -252,7 +252,7 @@ const HabitTracker = () => {
   // Function to delete a habit
   const deleteHabit = async (id) => {
     try {
-      const response = await fetch(`http://localhost:3000/habits/${id}`, {
+      const response = await fetch(`https://ihsan-backend-smoky.vercel.app/habits/${id}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -279,7 +279,7 @@ const HabitTracker = () => {
       const updatedTasks = habit.tasks.filter(t => t !== task);
       const updatedProgress = Math.min(habit.progress, updatedTasks.length);
 
-      const response = await fetch(`http://localhost:3000/habits/${habitId}`, {
+      const response = await fetch(`https://ihsan-backend-smoky.vercel.app/habits/${habitId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -304,7 +304,7 @@ const HabitTracker = () => {
   // Function to update the habit name
   const updateHabitName = async (id, newName) => {
     try {
-      const response = await fetch(`http://localhost:3000/habits/${id}`, {
+      const response = await fetch(`https://ihsan-backend-smoky.vercel.app/habits/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -334,7 +334,7 @@ const HabitTracker = () => {
 
       const updatedTasks = habit.tasks.map(t => t === oldTask ? newTask : t);
 
-      const response = await fetch(`http://localhost:3000/habits/${habitId}`, {
+      const response = await fetch(`https://ihsan-backend-smoky.vercel.app/habits/${habitId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

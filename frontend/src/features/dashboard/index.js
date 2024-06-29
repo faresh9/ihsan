@@ -60,7 +60,7 @@ function Dashboard(){
       }
 
       try {
-        const response = await fetch('http://localhost:3000/tasks', {
+        const response = await fetch('https://ihsan-backend-smoky.vercel.app/tasks', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -85,7 +85,7 @@ function Dashboard(){
       }
 
       try {
-        const response = await fetch('http://localhost:3000/habits', {
+        const response = await fetch('https://ihsan-backend-smoky.vercel.app/habits', {
           headers: {
             Authorization: `Bearer ${token}`,
           },

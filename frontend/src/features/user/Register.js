@@ -38,7 +38,7 @@ function Register() {
     setLoading(true) // Set loading to true while fetching data
 
     try {
-      const response = await fetch('http://localhost:3000/auth/register', {
+      const response = await fetch('https://ihsan-backend-smoky.vercel.app/auth/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

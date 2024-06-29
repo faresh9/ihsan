@@ -33,7 +33,7 @@ function ProfileSettings() {
     const fetchUserInfo = async () => {
       try {
         console.log("Fetching user info...");
-        const response = await fetch("http://localhost:3000/user", {
+        const response = await fetch("https://ihsan-backend-smoky.vercel.app/user", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -109,8 +109,8 @@ function ProfileSettings() {
     try {
       const method = isFirstTimeUser ? "POST" : "PUT"; // Determine if we need to create or update
       const endpoint = isFirstTimeUser
-        ? "http://localhost:3000/user" // API endpoint to create user
-        : `http://localhost:3000/user/${id}`; // API endpoint to update user
+        ? "https://ihsan-backend-smoky.vercel.app/user" // API endpoint to create user
+        : `https://ihsan-backend-smoky.vercel.app/user/${id}`; // API endpoint to update user
       const response = await fetch(endpoint, {
         method,
         headers: {

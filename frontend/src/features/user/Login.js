@@ -33,7 +33,7 @@ function Login() {
     setLoading(true) // Set loading to true while fetching data
 
     try {
-      const response = await fetch('http://localhost:3000/auth/login', {
+      const response = await fetch('https://ihsan-backend-smoky.vercel.app/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -53,7 +53,7 @@ function Login() {
       // Handle successful login
       localStorage.setItem('token', data.token); // Store the token in localStorage
       setLoading(false);
-       navigate('app/settings-profile'); // Redirect to the homepage using React Router's navigate function
+       navigate('app/welcome'); // Redirect to the homepage using React Router's navigate function
 
     } catch (error) {
       console.error('Error:', error);
