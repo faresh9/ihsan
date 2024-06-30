@@ -1,28 +1,25 @@
-import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import LandingIntro from './LandingIntro'
-import ErrorText from '../../components/Typography/ErrorText'
-import InputText from '../../components/Input/InputText'
-import axios from 'axios'; // Import Axios at the top of your file
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import LandingIntro from './LandingIntro';
+import ErrorText from '../../components/Typography/ErrorText';
+import InputText from '../../components/Input/InputText';
 
 function Login() {
   const INITIAL_LOGIN_OBJ = {
     emailId: "",
     password: ""
-  }
+  };
 
-  const [loading, setLoading] = useState(false)
-  const [errorMessage, setErrorMessage] = useState("")
-  const [loginObj, setLoginObj] = useState(INITIAL_LOGIN_OBJ)
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [loginObj, setLoginObj] = useState(INITIAL_LOGIN_OBJ);
   
-  const navigate = useNavigate(); // Use React Router's navigate function for redirection
-
- 
+  const navigate = useNavigate();
 
   const submitForm = async (e) => {
     e.preventDefault();
-  
-    // Validation checks before proceeding
+
+    // Validation checks
     if (loginObj.emailId.trim() === "") {
       setErrorMessage("Email Id is required!");
       return;
@@ -31,34 +28,44 @@ function Login() {
       setErrorMessage("Password is required!");
       return;
     }
-  
+
     setErrorMessage(""); // Clear previous errors
     setLoading(true); // Set loading to true while fetching data
-  
+
     try {
-      const response = await axios.post('https://ihsan-backend-smoky.vercel.app/auth/login', {
-        email: loginObj.emailId,
-        password: loginObj.password
+      const response = await fetch(`${process.env.REACT_APP_BASE_URL}/auth/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email: loginObj.emailId, password: loginObj.password })
       });
-  
+
+      if (!response.ok) {
+        const responseBody = await response.text();
+        setErrorMessage(`Login failed: ${responseBody}`);
+        setLoading(false);
+        return;
+      }
+
+      const data = await response.json();
+
       // Handle successful login
-      localStorage.setItem('token', response.data.token); // Store the token in localStorage
+      localStorage.setItem('token', data.token);
       setLoading(false);
-      navigate('app/welcome'); // Redirect to the homepage using React Router's navigate function
-  
+      navigate('app/welcome');
+
     } catch (error) {
       console.error('Error:', error);
-      // Check if error.response exists and use error.response.data for error message
-      const errorMessage = error.response && error.response.data ? error.response.data : 'An error occurred. Please try again.';
-      setErrorMessage(errorMessage);
+      setErrorMessage('An error occurred. Please try again.');
       setLoading(false);
     }
   };
 
   const updateFormValue = ({ updateType, value }) => {
-    setErrorMessage("") // Clear error message when user types
-    setLoginObj({ ...loginObj, [updateType]: value })
-  }
+    setErrorMessage(""); // Clear error message when user types
+    setLoginObj({ ...loginObj, [updateType]: value });
+  };
 
   return (
     <div className="min-h-screen bg-base-200 flex items-center">
@@ -72,7 +79,7 @@ function Login() {
             <form onSubmit={submitForm}>
               <div className="mb-4">
                 <InputText
-                  type="email" // Correct HTML type for email input
+                  type="email"
                   defaultValue={loginObj.emailId}
                   updateType="emailId"
                   containerStyle="mt-4"
@@ -80,7 +87,7 @@ function Login() {
                   updateFormValue={updateFormValue}
                 />
                 <InputText
-                  type="password" // Correct HTML type for password input
+                  type="password"
                   defaultValue={loginObj.password}
                   updateType="password"
                   containerStyle="mt-4"
@@ -112,7 +119,7 @@ function Login() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default Login;

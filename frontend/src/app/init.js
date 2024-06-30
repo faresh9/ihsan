@@ -6,22 +6,19 @@ const initializeApp = () => {
     axios.defaults.baseURL = process.env.REACT_APP_BASE_URL
 
 
-    if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
-        // dev code
+    // if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
+    //     // Development environment settings
+    //     console.log("Development environment");
+    //   } else {
+    //     // Production environment settings
+    //     console.log("Production environment");
+    
+    //     // Removing console.log from production
+    //     console.log = () => {};
 
 
-
-    } else {
-        // Prod build code
-
-
-
-        // Removing console.log from prod
-        console.log = () => {};
-
-
-        // init analytics here
-    }
+    //     // init analytics here
+    // }
 
 }
 

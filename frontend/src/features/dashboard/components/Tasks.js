@@ -12,7 +12,7 @@ const Tasks = () => {
           throw new Error('No token found');
         }
 
-        const response = await fetch('https://ihsan-backend-smoky.vercel.app/tasks', {
+        const response = await fetch(`${process.env.REACT_APP_BASE_URL}/tasks`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -45,7 +45,7 @@ const Tasks = () => {
       };
 
       console.log('Adding task:', newTask);
-      const response = await fetch('https://ihsan-backend-smoky.vercel.app/tasks', {
+      const response = await fetch(`${process.env.REACT_APP_BASE_URL}/tasks`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -73,7 +73,7 @@ const Tasks = () => {
         throw new Error('No token found');
       }
 
-      const response = await fetch(`https://ihsan-backend-smoky.vercel.app/tasks/${id}`, {
+      const response = await fetch(`${process.env.REACT_APP_BASE_URL}/tasks/${id}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -97,7 +97,7 @@ const Tasks = () => {
       );
 
       const updatedTask = updatedTasks.find((task) => task.id === id);
-      const response = await fetch(`https://ihsan-backend-smoky.vercel.app/tasks/${id}`, {
+      const response = await fetch(`${process.env.REACT_APP_BASE_URL}/tasks/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

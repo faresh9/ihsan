@@ -8,9 +8,10 @@ const app = express();
 // Middleware
 app.use(bodyParser.json());
 app.use(cors({
-  origin: '*',
-  methods: ['GET', 'POST', 'DELETE', 'UPDATE', 'PUT', 'PATCH'],
-  allowedHeaders: 'Content-Type,Authorization'
+  origin: ['http://localhost:3000', 'https://your-frontend-url.vercel.app'], // Update with your frontend URLs
+  methods: 'GET,POST,PUT,DELETE,OPTIONS',
+  allowedHeaders: 'Content-Type,Authorization',
+  credentials: true
 }));
 
 // Database
