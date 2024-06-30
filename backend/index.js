@@ -7,7 +7,11 @@ const app = express();
 
 // Middleware
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST', 'DELETE', 'UPDATE', 'PUT', 'PATCH'],
+  allowedHeaders: 'Content-Type,Authorization'
+}));
 
 // Database
 const sequelize = new Sequelize(

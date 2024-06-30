@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import LandingIntro from './LandingIntro'
 import ErrorText from '../../components/Typography/ErrorText'
 import InputText from '../../components/Input/InputText'
+import axios from 'axios'; // Import Axios at the top of your file
 
 function Login() {
   const INITIAL_LOGIN_OBJ = {
@@ -16,52 +17,43 @@ function Login() {
   
   const navigate = useNavigate(); // Use React Router's navigate function for redirection
 
-  const submitForm = async (e) => {
-    e.preventDefault()
+ 
 
+  const submitForm = async (e) => {
+    e.preventDefault();
+  
     // Validation checks before proceeding
     if (loginObj.emailId.trim() === "") {
-      setErrorMessage("Email Id is required!")
-      return
+      setErrorMessage("Email Id is required!");
+      return;
     }
     if (loginObj.password.trim() === "") {
-      setErrorMessage("Password is required!")
-      return
+      setErrorMessage("Password is required!");
+      return;
     }
-
-    setErrorMessage("") // Clear previous errors
-    setLoading(true) // Set loading to true while fetching data
-
+  
+    setErrorMessage(""); // Clear previous errors
+    setLoading(true); // Set loading to true while fetching data
+  
     try {
-      const response = await fetch('https://ihsan-backend-smoky.vercel.app/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ email: loginObj.emailId, password: loginObj.password }) // Corrected JSON.stringify usage
+      const response = await axios.post('https://ihsan-backend-smoky.vercel.app/auth/login', {
+        email: loginObj.emailId,
+        password: loginObj.password
       });
-
-      if (!response.ok) {
-        const responseBody = await response.text(); // Get response body for detailed error
-        setErrorMessage(`Login failed: ${responseBody}`);
-        setLoading(false);
-        return;
-      }
-
-      const data = await response.json();
-
+  
       // Handle successful login
-      localStorage.setItem('token', data.token); // Store the token in localStorage
+      localStorage.setItem('token', response.data.token); // Store the token in localStorage
       setLoading(false);
-       navigate('app/welcome'); // Redirect to the homepage using React Router's navigate function
-
+      navigate('app/welcome'); // Redirect to the homepage using React Router's navigate function
+  
     } catch (error) {
       console.error('Error:', error);
-      setErrorMessage('An error occurred. Please try again.');
+      // Check if error.response exists and use error.response.data for error message
+      const errorMessage = error.response && error.response.data ? error.response.data : 'An error occurred. Please try again.';
+      setErrorMessage(errorMessage);
       setLoading(false);
     }
-  // 
-  }
+  };
 
   const updateFormValue = ({ updateType, value }) => {
     setErrorMessage("") // Clear error message when user types

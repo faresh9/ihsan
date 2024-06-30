@@ -3,7 +3,7 @@ import './App.css';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom'
 import { themeChange } from 'theme-change'
 import checkAuth from './app/auth';
-//import initializeApp from './app/init';
+import initializeApp from './app/init';
 
 // Importing pages
 const Layout = lazy(() => import('./containers/Layout'))
@@ -14,7 +14,7 @@ const Documentation = lazy(() => import('./pages/Documentation'))
 
 
 // Initializing different libraries
-//initializeApp()
+initializeApp()
 
 
 // Check for login and initialize axios
