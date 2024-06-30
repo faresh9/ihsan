@@ -8,7 +8,7 @@ const app = express();
 // Middleware
 app.use(bodyParser.json());
 app.use(cors({
-  origin: ['http://localhost:3000', 'https://ihsan-frontend.vercel.app'], // Update with your frontend URLs
+  origin: ['http://localhost:3000', 'https://ihsan-beta.vercel.app'], // Update with your frontend URLs
   methods: 'GET,POST,PUT,DELETE,OPTIONS',
   allowedHeaders: 'Content-Type,Authorization',
   credentials: true
