@@ -20,6 +20,7 @@ import Tasks from './components/Tasks'
 import Overview from './components/Overview'
 import Projects from './components/Projects'
 import withComingSoon from '../../routes/withComingSoon';
+import BalanceLifeCircle from './components/BalanceLifeCircle'
 const statsData = [
     {title : "New Users", value : "34.7k", icon : <UserGroupIcon className='w-8 h-8'/>, description : "↗︎ 2300 (22%)"},
     {title : "Total Sales", value : "$34,545", icon : <CreditCardIcon className='w-8 h-8'/>, description : "Current month"},
@@ -117,6 +118,7 @@ function Dashboard(){
         <HabitTracker />
         <Tasks />
         <Projects />
+        <BalanceLifeCircle />
       </div>
     </>
   );
