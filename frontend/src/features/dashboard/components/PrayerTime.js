@@ -1,11 +1,11 @@
 import React from 'react';
-import withComingSoon from '../../../routes/withComingSoon';
+
 
 function PrayerTime({ fajr, dhuhr, asr, maghrib, isha }) {
   return (
     <div className="card bordered bg-base-200">
       <div className="card-body">
-        <h2 className="card-title">Prayer Times</h2>
+        <h2 className="card-title">Prayer Times <span className="badge badge-warning gap-2">BETA</span></h2>
         <div className="grid grid-cols-2 gap-4">
           <div>
             <h3>Fajr</h3>
@@ -36,4 +36,4 @@ function PrayerTime({ fajr, dhuhr, asr, maghrib, isha }) {
   );
 }
 
-export default withComingSoon(PrayerTime);
+export default PrayerTime;

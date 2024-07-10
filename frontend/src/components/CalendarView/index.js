@@ -1,4 +1,3 @@
-// src/components/CalendarView/index.js
 import { useEffect, useState } from "react";
 import ChevronLeftIcon from "@heroicons/react/24/solid/ChevronLeftIcon";
 import ChevronRightIcon from "@heroicons/react/24/solid/ChevronRightIcon";
@@ -80,29 +79,27 @@ function CalendarView({ calendarEvents, addNewEvent, openDayDetail, onDeleteEven
 
   return (
     <div className="w-full bg-base-100 p-4 rounded-lg">
-      <div className="flex items-center justify-between">
-        <div className="flex justify-normal gap-2 sm:gap-4">
-          <p className="font-semibold text-xl w-48">
+      <div className="flex flex-col sm:flex-row items-center justify-between">
+        <div className="flex items-center gap-2 sm:gap-4">
+          <p className="font-semibold text-xl">
             {moment(firstDayOfMonth).format("MMMM yyyy")}<span className="text-xs ml-2">Beta</span>
           </p>
           <button className="btn btn-square btn-sm btn-ghost" onClick={getPrevMonth}><ChevronLeftIcon className="w-5 h-5" /></button>
           <button className="btn btn-sm btn-ghost normal-case" onClick={getCurrentMonth}>Current Month</button>
           <button className="btn btn-square btn-sm btn-ghost" onClick={getNextMonth}><ChevronRightIcon className="w-5 h-5" /></button>
         </div>
-        <div>
-          <button className="btn btn-sm btn-ghost btn-outline normal-case" onClick={() => addNewEvent(moment())}>Add New Event</button>
-        </div>
+        <button className="btn btn-sm btn-primary normal-case mt-4 sm:mt-0" onClick={() => addNewEvent(moment())}>Add New Event</button>
       </div>
-      <div className="w-full grid grid-cols-7 mt-4">
+      <div className="w-full grid grid-cols-7 mt-4 text-center sm:grid-cols-7">
         {weekdays.map((weekday, idx) => (
-          <div key={idx} className="py-2">
-            <p className="uppercase text-sm text-center">{weekday}</p>
+          <div key={idx} className="py-2 uppercase text-sm">
+            {weekday}
           </div>
         ))}
       </div>
-      <div className="w-full grid grid-cols-7 gap-y-1">
+      <div className="w-full sm:grid sm:grid-cols-7 sm:gap-y-1 flex flex-col">
         {allDaysInMonth().map((day, idx) => (
-          <div key={idx} className={`h-24 border border-base-300 p-1 flex flex-col ${idx < 7 ? colStartClasses[moment(day).day()] : ""}`}>
+          <div key={idx} className={`h-auto sm:h-24 border border-base-300 p-1 flex flex-col ${idx < 7 ? colStartClasses[moment(day).day()] : ""}`}>
             <div className="flex justify-between items-center">
               <p
                 className={`inline-block flex items-center justify-center h-8 w-8 rounded-full mx-1 mt-1 text-sm cursor-pointer hover:bg-base-300 ${isToday(day) && "bg-blue-100"} ${isDifferentMonth(day) && "text-slate-400"}`}

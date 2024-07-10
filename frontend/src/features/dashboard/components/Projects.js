@@ -33,10 +33,11 @@ const projectsData = [
 
 const Projects = () => {
   return (
-    <div className="relative">
-      <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center z-10">
+    <div className="relative card">
+      <h2 className="card-title">projects <span className="badge badge-warning gap-2">BETA</span></h2>
+      {/* <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center z-10">
         <span className="text-white text-4xl font-bold">Coming Soon</span>
-      </div>
+      </div> */}
       <div className="grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 gap-6">
         {projectsData.map((project) => (
           <div key={project.id} className="card w-full bg-base-100 shadow-xl">
