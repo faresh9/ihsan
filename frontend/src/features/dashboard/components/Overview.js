@@ -73,7 +73,7 @@ const Overview = ({ tasks, habits }) => {
             
             {/* Upcoming Events */
             events.length > 0 && (
-              <div className="mt-2 bg-base-200 p-4 rounded-lg ">
+              <div className="mt-2 bg-base-200 p-4 rounded-2xl mr-10">
                 <h3 className="text-xl font-semibold bg-base-200 mb-2 card-title">Upcoming Events</h3>
                 <ul className="list-disc list-inside bg-base-200">
                   {events.map((event, index) => (
