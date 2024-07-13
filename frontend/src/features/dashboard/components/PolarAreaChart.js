@@ -1,43 +1,7 @@
-// PolarAreaChart.js
 import React, { useEffect, useRef } from 'react';
-import { Chart, PolarAreaController, RadialLinearScale, ArcElement, Tooltip, Legend } from 'chart.js';
+import { Chart, RadarController, RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend } from 'chart.js';
 
-Chart.register(PolarAreaController, RadialLinearScale, ArcElement, Tooltip, Legend);
-
-// Define a custom plugin to draw radial grid lines with different colors
-const radialGridPlugin = {
-  id: 'radialGridColors',
-  beforeDraw: (chart) => {
-    const { ctx, chartArea, scales: { r } } = chart;
-    const stepSize = r.max / r.ticks.length;
-
-    // DaisyUI color palette or any other colors you prefer
-    const colors = [
-      'rgba(255, 2, 132, 0.3)',
-      'rgba(0, 182, 235, 0.9)',
-      'rgba(255, 206, 86, 0.3)',
-      'rgba(75, 192, 192, 0.3)',
-      'rgba(153, 102, 255, 0.3)',
-      'rgba(255, 159, 64, 0.3)',
-    ];
-
-    // Clear the previous chart background
-    ctx.clearRect(chartArea.left, chartArea.top, chartArea.width, chartArea.height);
-
-    // Draw each radial grid line with different colors
-    r.ticks.forEach((tick, index) => {
-      ctx.beginPath();
-      ctx.arc(r.xCenter, r.yCenter, (index + 1) * stepSize * r.drawingArea / r.max, 0, 2 * Math.PI);
-      ctx.strokeStyle = colors[1];
-      ctx.lineWidth = 1;
-      ctx.stroke();
-      ctx.closePath();
-    });
-  }
-};
-
-// Register the custom plugin
-Chart.register(radialGridPlugin);
+Chart.register(RadarController, RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend);
 
 const PolarAreaChart = ({ labels, data }) => {
   const chartRef = useRef(null);
@@ -53,33 +17,16 @@ const PolarAreaChart = ({ labels, data }) => {
 
     // Create new chart instance
     chartInstanceRef.current = new Chart(ctx, {
-      type: 'polarArea',
+      type: 'radar',
       data: {
         labels: labels,
         datasets: [{
           label: 'Life Balance Ratings',
           data: data,
-          backgroundColor: [
-            'rgba(255, 2, 132, 0.5)',
-            'rgba(54, 162, 235, 0.5)',
-            'rgba(255, 206, 86, 0.5)',
-            'rgba(75, 192, 192, 0.5)',
-            'rgba(153, 102, 255, 0.5)',
-            'rgba(255, 159, 64, 0.5)',
-            'rgba(199, 199, 199, 0.5)',
-            'rgba(83, 102, 255, 0.5)',
-          ],
-          borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)',
-            'rgba(199, 199, 199, 1)',
-            'rgba(83, 102, 255, 1)',
-          ],
+          backgroundColor: 'rgba(54, 162, 235, 0.2)',
+          borderColor: 'rgba(54, 162, 235, 1)',
           borderWidth: 1,
+          pointBackgroundColor: 'rgba(54, 162, 235, 1)',
         }],
       },
       options: {
@@ -87,14 +34,23 @@ const PolarAreaChart = ({ labels, data }) => {
         maintainAspectRatio: true,
         scales: {
           r: {
+            min: 0,
+            max: 10,
             ticks: {
-              display: false // Hide the numbers along the radial axis
+              stepSize: 1,
+              beginAtZero: true,
+              display: false,
             },
             grid: {
-              color: () => 'transparent', // Set grid line color to transparent since we are drawing custom lines
-            }
-          }
-        }
+              color: 'rgba(0, 162, 0, 0.9)',
+            },
+          },
+        },
+        elements: {
+          line: {
+            tension: 0,
+          },
+        },
       },
     });
 

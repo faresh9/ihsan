@@ -37,14 +37,15 @@ const Tasks = () => {
   };
 
   const onAddTask = async () => {
-    try {
-      const newTask = {
-        id: generateRandomId(), // Generate a random ID
-        name: taskName,
-        completed: false,
-      };
+    const newTask = {
+      id: generateRandomId(), // Generate a random ID
+      name: taskName,
+      completed: false,
+    };
 
-      console.log('Adding task:', newTask);
+    setTasks([...tasks, newTask]); // Update the state optimistically
+
+    try {
       const response = await fetch(`${process.env.REACT_APP_BASE_URL}/tasks`, {
         method: 'POST',
         headers: {
@@ -59,14 +60,19 @@ const Tasks = () => {
       }
 
       const createdTask = await response.json();
-      setTaskName('');
-      setTasks([...tasks, createdTask]);
+      setTasks((prevTasks) => prevTasks.map((task) => (task.id === newTask.id ? createdTask : task)));
     } catch (error) {
       console.error('Error adding task:', error);
+      setTasks((prevTasks) => prevTasks.filter((task) => task.id !== newTask.id)); // Revert the state if an error occurs
+    } finally {
+      setTaskName('');
     }
   };
 
   const onDeleteTask = async (id) => {
+    const updatedTasks = tasks.filter((task) => task.id !== id);
+    setTasks(updatedTasks); // Update the state optimistically
+
     try {
       const token = localStorage.getItem('token');
       if (!token) {
@@ -83,19 +89,19 @@ const Tasks = () => {
       if (!response.ok) {
         throw new Error('Failed to delete task');
       }
-
-      setTasks(tasks.filter((task) => task.id !== id));
     } catch (error) {
       console.error('Error deleting task:', error);
+      setTasks((prevTasks) => [...prevTasks, tasks.find((task) => task.id === id)]); // Revert the state if an error occurs
     }
   };
 
   const onToggleTaskCompletion = async (id) => {
-    try {
-      const updatedTasks = tasks.map((task) =>
-        task.id === id ? { ...task, completed: !task.completed } : task
-      );
+    const updatedTasks = tasks.map((task) =>
+      task.id === id ? { ...task, completed: !task.completed } : task
+    );
+    setTasks(updatedTasks); // Update the state optimistically
 
+    try {
       const updatedTask = updatedTasks.find((task) => task.id === id);
       const response = await fetch(`${process.env.REACT_APP_BASE_URL}/tasks/${id}`, {
         method: 'PUT',
@@ -109,10 +115,13 @@ const Tasks = () => {
       if (!response.ok) {
         throw new Error('Failed to update task');
       }
-
-      setTasks(updatedTasks);
     } catch (error) {
       console.error('Error updating task:', error);
+      setTasks((prevTasks) =>
+        prevTasks.map((task) =>
+          task.id === id ? { ...task, completed: !task.completed } : task
+        )
+      ); // Revert the state if an error occurs
     }
   };
 

@@ -4,12 +4,41 @@ import PrayerTime from './PrayerTime';
 
 const Overview = ({ tasks, habits }) => {
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [events, setEvents] = useState([]);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
       setCurrentTime(new Date());
     }, 1000);
     return () => clearInterval(intervalId);
+  }, []);
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+          throw new Error('No token found');
+        }
+
+        const response = await fetch(`${process.env.REACT_APP_BASE_URL}/events`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch events');
+        }
+
+        const events = await response.json();
+        setEvents(events);
+      } catch (error) {
+        console.error('Error fetching events:', error);
+      }
+    };
+
+    fetchEvents();
   }, []);
 
   const formatDate = (date) => {
@@ -39,7 +68,22 @@ const Overview = ({ tasks, habits }) => {
               hour: '2-digit',
               minute: '2-digit',
             })}
+            
           </p>
+            
+            {/* Upcoming Events */
+            events.length > 0 && (
+              <div className="mt-2 bg-base-200 p-4 rounded-lg ">
+                <h3 className="text-xl font-semibold bg-base-200 mb-2 card-title">Upcoming Events</h3>
+                <ul className="list-disc list-inside bg-base-200">
+                  {events.map((event, index) => (
+                    <li key={index} className="bg-base-200 text-lg font-semibold
+                    ">{event.title}  <p className='text-sm font-normal'>{event.date}</p></li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
         </div>
         <PrayerTime fajr="5:00 AM" dhuhr="1:00 PM" asr="5:00 PM" maghrib="8:00 PM" isha="10:00 PM" />
       </div>
