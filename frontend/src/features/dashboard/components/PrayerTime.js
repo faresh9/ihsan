@@ -1,7 +1,33 @@
-import React from 'react';
+
+import React, { useEffect, useState } from 'react';
+
+function PrayerTime() {
+  const [times, setTimes] = useState({
+    fajr: '',
+    dhuhr: '',
+    asr: '',
+    maghrib: '',
+    isha: ''
+  });
+
+  useEffect(() => {
+    const fetchPrayerTimes = async () => {
+      const response = await fetch('http://api.aladhan.com/v1/timingsByCity?city=Amman&country=Jordan&method=1');
+      const data = await response.json();
+      const { timings } = data.data;
+      setTimes({
+        fajr: timings.Fajr,
+        dhuhr: timings.Dhuhr,
+        asr: timings.Asr,
+        maghrib: timings.Maghrib,
+        isha: timings.Isha
+      });
+    };
+
+    fetchPrayerTimes();
+  }, []);
 
 
-function PrayerTime({ fajr, dhuhr, asr, maghrib, isha }) {
   return (
     <div className="card bordered bg-base-200">
       <div className="card-body">
@@ -9,23 +35,23 @@ function PrayerTime({ fajr, dhuhr, asr, maghrib, isha }) {
         <div className="grid grid-cols-2 gap-4">
           <div>
             <h3>Fajr</h3>
-            <p>{fajr}</p>
+            <p>{times.fajr}</p>
           </div>
           <div>
             <h3>Dhuhr</h3>
-            <p>{dhuhr}</p>
+            <p>{times.dhuhr}</p>
           </div>
           <div>
             <h3>Asr</h3>
-            <p>{asr}</p>
+            <p>{times.asr}</p>
           </div>
           <div>
             <h3>Maghrib</h3>
-            <p>{maghrib}</p>
+            <p>{times.maghrib}</p>
           </div>
           <div>
             <h3>Isha</h3>
-            <p>{isha}</p>
+            <p>{times.isha}</p>
           </div>
         </div>
       </div>

@@ -85,7 +85,7 @@ const Overview = ({ tasks, habits }) => {
             )}
 
         </div>
-        <PrayerTime fajr="5:00 AM" dhuhr="1:00 PM" asr="5:00 PM" maghrib="8:00 PM" isha="10:00 PM" />
+        <PrayerTime/>
       </div>
 
       {/* Daily Tasks Summary */}
