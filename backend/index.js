@@ -8,7 +8,7 @@ const app = express();
 // Middleware
 app.use(bodyParser.json());
 app.use(cors({
-  origin: ['http://localhost:3000', 'https://ihsan-beta.vercel.app'], // Update with your frontend URLs
+  origin: ['http://localhost:3000', 'https://ihsan-beta.vercel.app', 'http://localhost:3001'], // Update with your frontend URLs
   methods: 'GET,POST,PUT,DELETE,OPTIONS',
   allowedHeaders: 'Content-Type,Authorization',
   credentials: true
@@ -44,6 +44,7 @@ const noteRoutes = require('./routes/notes');
 const authRouter = require('./routes/auth');
 const habitsRoutes = require('./routes/habits');
 const userRoutes = require('./routes/user');
+const hexRoutes = require('./routes/hex');
 
 app.use('/events', eventRoutes);
 app.use('/tasks', tasksRoutes);
@@ -51,7 +52,8 @@ app.use('/notes', noteRoutes);
 app.use('/auth', authRouter);
 app.use('/habits', habitsRoutes);
 app.use('/user', userRoutes);
+app.use('/hex', hexRoutes);
 
 // Server
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
