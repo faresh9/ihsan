@@ -91,7 +91,7 @@ Contributions are always welcome! Please read the [contributing guidelines](CONT
 
 ## Feedback
 
-For feedback, please open an issue in the repository or contact us directly.
+For feedback, please open an issue in the repository or contact me directly.
 
 ## Live Preview
 
