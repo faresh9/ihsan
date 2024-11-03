@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import LandingIntro from './LandingIntro'
 import ErrorText from '../../components/Typography/ErrorText'
 import InputText from '../../components/Input/InputText'
+import { response } from 'express'
 
 function Register() {
   const INITIAL_REGISTER_OBJ = {
@@ -11,9 +12,19 @@ function Register() {
     password: ""
   }
 
+const categories = new Map();
+categories.set('Spiritual', 1);
+categories.set('Health', 1);
+categories.set('Career', 1);
+categories.set('Finances', 1);
+categories.set('Relationships', 1);
+categories.set('Personal Growth', 1);
+const keys = Array.from(categories.keys());
+
   const [loading, setLoading] = useState(false)
   const [errorMessage, setErrorMessage] = useState("")
   const [registerObj, setRegisterObj] = useState(INITIAL_REGISTER_OBJ)
+  const [ratings, setRatings] = useState(Array.from(categories.values()));
   
   const navigate = useNavigate(); // Use React Router's navigate function for redirection
 
@@ -69,7 +80,29 @@ function Register() {
       setErrorMessage('An error occurred. Please try again.');
       setLoading(false);
     }
-  }
+
+    try{
+      const promises = keys.map(async (category, index) => {
+        const response = await fetch(`${process.env.REACT_APP_BASE_URL}/hex/`, {
+          method: 'PATCH',
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ rating: ratings[index] })
+        });
+
+        if (!response.ok) {
+          throw new Error(`Failed to save ${category}`);
+        }
+      });
+
+      await Promise.all(promises);
+
+    } catch (error) {
+      console.error(error);
+    }
+}
 
   const updateFormValue = ({ updateType, value }) => {
     setErrorMessage("") // Clear error message when user types

@@ -102,4 +102,4 @@ function Leads(){
 }
 
 
-export default withComingSoon(Leads);
+export default Leads;
